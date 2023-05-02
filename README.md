@@ -3,4 +3,4 @@ This repo contains the M Extension of the RV32I 5 stage pipelined Processor
 
 # **DataPath followed**
 
- ![image](https://user-images.githubusercontent.com/104595329/235644200-67e40eca-e6f1-48f5-b0ee-)
+ ![image](https://user-images.githubusercontent.com/104595329/235644200-67e40eca-e6f1-48f5-b0ee-ef27077dd0df.png)
