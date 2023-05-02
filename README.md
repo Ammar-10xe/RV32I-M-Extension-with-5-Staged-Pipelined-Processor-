@@ -7,6 +7,111 @@ This repo contains the M Extension of the RV32I 5 stage pipelined Processor
 
 
 ### **Testing and Simulation:**
+In Order to test the correct working of M extension I have added some test case which will check all the 8 different Instructions of M extension  that are
+
+- MUL (Multiply): Computes the product of two 32-bit signed integers.
+- MULH (Multiply High): Computes the upper 32 bits of the 64-bit signed product of two 32-bit signed integers.
+- MULHSU (Multiply High Signed/Unsigned): Computes the upper 32 bits of the 64-bit signed product of a 32-bit signed integer and a 32-bit unsigned integer.
+- MULHU (Multiply High Unsigned): Computes the upper 32 bits of the 64-bit unsigned product of two 32-bit unsigned integers.
+- DIV (Divide): Divides two 32-bit signed integers and returns the quotient.
+- DIVU (Divide Unsigned): Divides two 32-bit unsigned integers and returns the quotient.
+- REM (Remainder): Divides two 32-bit signed integers and returns the remainder.
+- REMU (Remainder Unsigned): Divides two 32-bit unsigned integers and returns the remainder.
+
+The test case written is as follows:
+```
+
+# Load two unsigned 32-bit integers into registers x1 and x2
+li x1, 100
+li x2, 200
+
+# Multiply the two integers and store the result in a 64-bit register x3
+mul x3, x1, x2
+
+# Load two signed 32-bit integers into registers x4 and x5
+li x4, -50
+li x5, 20
+
+# Multiply the two integers and store the high 32 bits of the result in a register x6
+mulh x6, x4, x5
+
+# Load two signed 32-bit integers into registers x7 and x8
+li x7, -100
+li x8, 25
+
+# Divide the first integer by the second integer and store the quotient in a register x9
+div x9, x7, x8
+
+# Load two unsigned 32-bit integers into registers x10 and x11
+li x10, 500
+li x11, 37
+
+# Divide the first integer by the second integer and store the remainder in a register x12
+remu x12, x10, x11
+
+# Load two unsigned 32-bit integers into registers x13 and x14
+li x13, 1000
+li x14, 50
+
+# Divide the first integer by the second integer and store the quotient in a register x15
+divu x15, x13, x14
+
+# Load two signed 32-bit integers into registers x16 and x17
+li x16, -200
+li x17, 40
+
+# Multiply the two integers and store the low 32 bits of the result in a register x18
+mul x18, x16, x17
+
+# Load two signed 32-bit integers into registers x19 and x20
+li x19, -300
+li x20, 60
+
+# Multiply the two integers and store the unsigned high 32 bits of the result in a register x21
+mulhu x21, x19, x20
+
+# Load two unsigned 32-bit integers into registers x22 and x23
+li x22, 400
+li x23, 80
+
+# Multiply the two integers and store the unsigned low 32 bits of the result in a register x24
+mul x24, x22, x23
+```
+
+After running the above code the contents of the register should be 
+
+```
+x1: 0x00000064
+x2: 0x000000C8
+x3: 0x000012C0
+x4: 0xFFFFFFCE
+x5: 0x00000014
+x6: 0xFFFFFEC0
+x7: 0xFFFFFF9C
+x8: 0x00000019
+x9: 0xFFFFFFFD
+x10: 0x000001F4
+x11: 0x00000025
+x12: 0x0000000F
+x13: 0x000003E8
+x14: 0x00000032
+x15: 0x0000001F
+x16: 0xFFFFFF38
+x17: 0x00000028
+x18: 0x0006A800
+x19: 0xFFFFFF2C
+x20: 0x0000003C
+x21: 0x000001B1
+x22: 0x00000190
+x23: 0x00000050
+x24: 0x0007D000
+```
+
+After running the above code on MODELSIM we can verify the contents of the register are same as shown:
+
+ ![image](https://user-images.githubusercontent.com/104595329/235796124-542aba51-6dad-4729-b975-0e605564a68e.png)
+
+## Factorial Code Testing:
 
 The code of factorial was used to test this since the code is calculating the factorial of 5! the output of 120 should be stored before returning back from this function in register a0(x10) 
 
