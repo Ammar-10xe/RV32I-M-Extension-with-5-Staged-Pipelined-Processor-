@@ -10,6 +10,7 @@ This repo contains the M Extension of the RV32I 5 stage pipelined Processor
 
 The code of factorial was used to test this since the code is calculating the factorial of 5! the output of 120 should be stored before returning back from this function in register a0(x10) 
 
+
 ## **Factorial Code**
 
 ```
@@ -47,6 +48,8 @@ factorial:
         jr ra
 
 ```
+The following code is using the mul instruction which is not an Interger type instruction and it will be supported by M extension
+
 The hex generated for this code is 
 
 ```
