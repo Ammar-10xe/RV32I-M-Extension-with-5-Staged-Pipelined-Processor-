@@ -1,11 +1,12 @@
 module ALU (
     input  logic [4:0]  alu_opE,
     input  logic [31:0] SrcAE, SrcBE,
-    output logic [1:0]  mul_opcode,div_opcode,
     output logic [31:0] ALUResult,
+    //For M extension     
     output logic [31:0] operand1, operand2,
-    output logic [63:0] result_multiply,
-    output logic [31:0] result_divide
+    output logic [1:0]  mul_opcode,div_opcode,
+    input logic  [63:0] result_multiply,
+    input logic  [31:0] result_divide
 );
 
 //For Interger Type
@@ -32,7 +33,7 @@ parameter [4:0] REM     = 5'b10001;
 parameter [4:0] REMU    = 5'b10010;
 
 // instances of multiplier and divider modules
-multiplier_32bit multiply1( 
+multiplier_32bit multiply( 
     .mul_opcode(mul_opcode),
     .operand1(operand1),
     .operand2(operand2),
@@ -44,7 +45,7 @@ divider_32bit divide(
     .operand2(operand2),
     .result_divide(result_divide));
 
-always_comb begin
+  always_comb begin
   case(alu_opE)
     
     ADD: ALUResult = SrcAE + SrcBE ;                             //Addition

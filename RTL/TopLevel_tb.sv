@@ -27,7 +27,6 @@ end
 // begin
     
 // if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultW == 32'h00000f00))
-// // if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultW == 32'hff000000)) //demofile
 // begin
 //     $fwrite(f,"%h\n", TOPLevel.data_wr);
 // end
@@ -38,18 +37,12 @@ end
 // end
 // end
 
-
-
 always_ff @(posedge clk)
 begin
+    // if(!TOPLevel.Alu.result_multiply)
     $fwrite(f,"%h\n", TOPLevel.ALUResult);
 
-
 end
-
-
-
-
 
 initial 
 begin
@@ -59,7 +52,7 @@ begin
 end
 
 // parameter count = 500000;
-parameter count = 100;
+parameter count = 1000;
 reg [31:0] loop;
 
 initial begin
@@ -72,22 +65,3 @@ end
 
 endmodule
 
-// module TopLevel_tb ();
-// logic clk,rst;
-
-// TopLevel TOPLevel (.clk(clk),.rst(rst));
-
-// initial begin
-//     clk<=0;
-//     forever begin
-//         #1 clk<=~clk;
-//     end
-// end
-// initial begin
-//     #1
-//     rst<=1;
-//     #1
-//     rst<=0;
-// end
-
-// endmodule

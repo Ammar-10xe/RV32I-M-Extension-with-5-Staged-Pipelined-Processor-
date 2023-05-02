@@ -7,12 +7,17 @@ module TopLevel (input logic clk,rst);
     logic [4:0]  raddr1,raddr1D,raddr1E,raddr2,raddr2D,raddr2E,waddr,waddrD,waddrE,waddrM,waddrW,alu_op,alu_opE;
     logic [6:0]  instr_opcode,instr_opcodeE,instr_opcodeM;
     logic [31:0] Addr,AddrD,AddrE,AddrM,AddrW,AddrWB,PC,Inst,InstD,InstE,InstM,InstW,PCF,wdata,rdata1,rdata1E,rdata2,rdata2E,rdata2M,ImmExtD,ImmExtE,SrcA,SrcAE,SrcB,SrcBE,ALUResult,ALUResultM,ALUResultW,rdata,rdataW,data_rd,addr,addr_DM,data_wr,toLSU,mem_out;
-    logic [31:0] mem_outW,operand1,operand2,result_divide;
-    logic [63:0] result_multiply;
+    logic [31:0] mem_outW;
+    
     //for Alu M extension 
+    logic [31:0] operand1, operand2, result_divide, ALU_result_divide;
+    logic [63:0] result_multiply, ALU_result_multiply;
+
+
+    
     logic [31:0] ALU_operand1, ALU_operand2;
-    logic [63:0] ALU_result_multiply;
-    logic [31:0] ALU_result_divide;
+    // logic [63:0] ALU_result_multiply;
+    // logic [31:0] ALU_result_divide;
     logic [1:0]  mul_opcode,div_opcode;
 
 
@@ -163,12 +168,10 @@ ALU Alu(
     .mul_opcode(mul_opcode),
     .div_opcode(div_opcode),
     .ALUResult(ALUResult),
-    .operand1(ALU_operand1),
-    .operand2(ALU_operand2),
-    .result_multiply(ALU_result_multiply),
-    .result_divide(ALU_result_divide));
-
-
+    .operand1(operand1),
+    .operand2(operand2),
+    .result_multiply(result_multiply),
+    .result_divide(result_divide));
 
 
 third_register ThirdReg(
