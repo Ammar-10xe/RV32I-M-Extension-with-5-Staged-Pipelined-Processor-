@@ -10,7 +10,7 @@ This repo contains the M Extension of the RV32I 5 stage pipelined Processor
 
 The code of factorial was used to test this since the code is calculating the factorial of 5! the output of 120 should be stored before returning back from this function in register a0(x10) 
 
-**Factorial Code**
+## **Factorial Code**
 
 ```
 factorial:
@@ -66,11 +66,14 @@ ff5ff06f
 00810113
 00008067
 ```
-### Output Result and Waveform
+## Output Result and Waveform
 The output obtained after running the factorial function  is 
 
 
  ![image](https://user-images.githubusercontent.com/104595329/235783797-2a17f9f7-e17a-4ecc-bdce-cc7275f3ff23.png)
+ 
+ The output waveform showing the result stored in a0
+ 
  ![image](https://user-images.githubusercontent.com/104595329/235786860-62545096-cd48-4e5e-a742-5d60659682b5.png)
 
-The output waveform showing the result stored in a0
+
