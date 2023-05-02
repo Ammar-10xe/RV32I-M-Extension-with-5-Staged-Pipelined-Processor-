@@ -90,6 +90,8 @@ After running the above code on MODELSIM we can verify the contents of the regis
 
  ![image](https://user-images.githubusercontent.com/104595329/235796124-542aba51-6dad-4729-b975-0e605564a68e.png)
 
+You can verify the contents by copying the code code and running it on the the [](https://venus.cs61c.org/)
+
 ## Factorial Code Testing:
 
 The code of factorial was used to test this since the code is calculating the factorial of 5! the output of 120 should be stored before returning back from this function in register a0(x10) 
