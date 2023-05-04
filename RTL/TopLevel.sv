@@ -33,9 +33,6 @@ divider_32bit divider_inst (
     .operand2(operand2),
     .result_divide(result_divide));
 
-
-
-
 Mux_PC MuxPC(
     .br_takenM(br_taken),
     .PCF(PCF),
