@@ -23,26 +23,26 @@ begin
         end
 end
 
-always_ff @(posedge clk)
-begin
-    
-if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultW == 32'h00000f00))
-begin
-    $fwrite(f,"%h\n", TOPLevel.data_wr);
-end
-
-if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultW == 32'hcafebeef))
-begin
-    $finish;
-end
-end
-
 // always_ff @(posedge clk)
 // begin
-//     // if(!TOPLevel.Alu.result_multiply)
-//     $fwrite(f,"%h\n", TOPLevel.result_multiply);
-
+    
+// if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultW == 32'h00000f00))
+// begin
+//     $fwrite(f,"%h\n", TOPLevel.data_wr);
 // end
+
+// if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultW == 32'hcafebeef))
+// begin
+//     $finish;
+// end
+// end
+
+always_ff @(posedge clk)
+begin
+    // if(!TOPLevel.Alu.result_multiply)
+    $fwrite(f,"%h\n", TOPLevel.result_m);
+
+end
 
 initial 
 begin
