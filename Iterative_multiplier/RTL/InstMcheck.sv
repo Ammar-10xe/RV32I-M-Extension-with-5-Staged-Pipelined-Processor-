@@ -56,6 +56,7 @@ divider_32bit divide(
       mul_opcode = 2'b00;
       case(ready & ~mul_use)
         1'b1: begin
+             $display("multiply result=  %h, ready= %d, mul_use= %d ",result_multiply,ready,mul_use);
              result_m = result_multiply[31:0]; // Or [63:32] for higher 32 bits
              flagM = 1'b1;
         end
