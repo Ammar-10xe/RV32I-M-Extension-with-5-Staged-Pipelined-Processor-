@@ -9,7 +9,10 @@ always_comb begin
         2'b00: // DIV
             if (operand2 == 0) begin
                 result_divide = 32'hFFFFFFFF;
-            end else begin
+            end 
+            else if ( operand1 == 32'h80000000 && operand2 == 32'hffffffff)
+                result_divide = operand1;
+            else begin
                 result_divide = $signed(operand1) / $signed(operand2);
             end
         2'b01: // DIVU

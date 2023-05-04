@@ -37,7 +37,7 @@ InstMcheck Mcheck (
     .ready(ready));
 
 
-multiplier_iterative multiplier5 (
+multiplier_iterative multiplier (
     .clk(clk),
     .rst(rst),
     .startE(startE),

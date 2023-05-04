@@ -48,31 +48,6 @@ module multiplier_iterative (
                 ready <= 1'b0;
                 processing <= 1'b1;
             end
-
-            // if (processing) begin
-            //     if (counter < 32) begin
-            //         if (multiplier_reg[0] == 1'b1) begin
-            //             product_reg <= {product_reg[62:31], product_reg[30:0] + multiplicand_reg};
-            //         end
-            //         multiplicand_reg <= multiplicand_reg << 1;
-            //         multiplier_reg <= multiplier_reg >> 1;
-            //         counter <= counter + 1'b1;
-            //     end else begin
-            //         processing <= 1'b0;
-            //         ready <= 1'b1;
-            //         case (mul_opcode)
-            //             MUL: begin
-            //                 result_multiply <= product_reg;
-            //             end
-            //             MULH, MULHSU, MULHU: begin
-            //                 result_multiply <= product_reg[63:32];
-            //             end
-            //         endcase
-            //     end
-            // end else begin
-            //     mul_use <= 1'b0;
-            //     ready <= 1'b0;
-            // end
             if (processing) begin
     mul_use <= 1'b1;
     if (counter < 32) begin
