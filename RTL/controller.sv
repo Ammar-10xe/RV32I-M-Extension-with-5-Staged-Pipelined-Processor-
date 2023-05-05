@@ -41,25 +41,8 @@ begin
     case(instr_opcode)
 
 
-        7'b0110011: begin   //for M extension
-            reg_wr   = 1'b1;
-            sel_A    = 1'b1;
-            sel_B    = 1'b0;
-            wb_sel   = 2'b01;
-            ImmSrcD  = 3'bxxx;
-            case (funct3)
-                3'b000: alu_op = MUL;
-                3'b001: alu_op = MULH;
-                3'b010: alu_op = MULHSU;
-                3'b011: alu_op = MULHU;
-                3'b100: alu_op = DIV;
-                3'b101: alu_op = DIVU;
-                3'b110: alu_op = REM;
-                3'b111: alu_op = REMU;
-            endcase
-        end 
 
-        7'b0110011: //R-Type
+        7'b0110011: //R-Type and M extension
         begin 
             reg_wr   = 1'b1;
             sel_A    = 1'b1;
@@ -67,27 +50,39 @@ begin
             wb_sel   = 2'b01;
             ImmSrcD  = 3'bxxx;
 
-            case (funct3)
-                3'b000: begin
-                    case (funct7) 
-                        7'b0000000 : alu_op = ADD; 
-                        7'b0100000 : alu_op = SUB; 
+            case (funct7)
+                7'b0000000: begin
+                    case (funct3) 
+                        3'b000: alu_op = ADD;
+                        3'b001: alu_op = SLL;
+                        3'b010: alu_op = SLT;
+                        3'b011: alu_op = SLTU;
+                        3'b100: alu_op = XOR;
+                        3'b101: alu_op = SRL;
+                        3'b110: alu_op = OR;
+                        3'b111: alu_op = AND;
                     endcase
-                    end
-                3'b001: alu_op = SLL;
-                3'b010: alu_op = SLT;
-                3'b011: alu_op = SLTU;
-                3'b100: alu_op = XOR;
-                3'b101: begin
-                    case (funct7)
-                        7'b0000000 : alu_op = SRL;
-                        7'b0100000 : alu_op = SRA; 
-                    endcase          
-                    end
-                3'b110: alu_op = OR;
-                3'b111: alu_op = AND;   
+                end
+                7'b0100000: begin
+                    case (funct3)
+                        3'b000: alu_op = SUB;
+                        3'b101: alu_op = SRA;
+                    endcase
+                end
+                7'b0000001: begin
+                    case (funct3)
+                        3'b000: alu_op = MUL;
+                        3'b001: alu_op = MULH;
+                        3'b010: alu_op = MULHSU;
+                        3'b011: alu_op = MULHU;
+                        3'b100: alu_op = DIV;
+                        3'b101: alu_op = DIVU;
+                        3'b110: alu_op = REM;
+                        3'b111: alu_op = REMU;
+                    endcase
+                end 
             endcase
-            end
+        end
 
         7'b0010011: begin // I-Type Without load 
         reg_wr   = 1'b1;
