@@ -32,12 +32,12 @@ parameter [4:0] REMU    = 5'b10010;
 
 
   always_comb begin
-
+  
     if (flagM ) begin
         ALUResult = result_m;
     end
 
-
+if ( alu_opE != MUL & alu_opE != MULH & alu_opE != MULHU & alu_opE != MULHSU) begin
   case(alu_opE)
     
     ADD: ALUResult = SrcAE + SrcBE ;                             //Addition
@@ -61,15 +61,11 @@ parameter [4:0] REMU    = 5'b10010;
     AND: ALUResult = SrcAE & SrcBE;                              //Logical and
 
     LUI: ALUResult = SrcBE;                                      //Load Upper Immediate
-
+ 
    
-
-   
-    
-
     // default:  ALUResult = SrcAE + SrcBE;
         // default:  ALUResult = 32'b0;
     endcase
-
+end
   end
 endmodule

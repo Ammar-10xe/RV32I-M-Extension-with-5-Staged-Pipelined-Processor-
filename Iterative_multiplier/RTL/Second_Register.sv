@@ -49,7 +49,7 @@ module second_register (
             wb_selE       <= 2'bx;
             funct3E       <= 3'bx;
             instr_opcodeE <= 7'bx;
-            alu_opE       <= 5'b0;
+            alu_opE       <= 5'bx;
             raddr1E       <= 5'b0;
             raddr2E       <= 5'b0;
             waddrE        <= 5'b0;
