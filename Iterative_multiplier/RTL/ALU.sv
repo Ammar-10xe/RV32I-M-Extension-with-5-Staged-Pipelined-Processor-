@@ -37,7 +37,7 @@ parameter [4:0] REMU    = 5'b10010;
         ALUResult = result_m;
     end
 
-if ( alu_opE != MUL & alu_opE != MULH & alu_opE != MULHU & alu_opE != MULHSU ) begin
+if (!mul_use) begin
   case(alu_opE)
     
     ADD: ALUResult = SrcAE + SrcBE ;                             //Addition

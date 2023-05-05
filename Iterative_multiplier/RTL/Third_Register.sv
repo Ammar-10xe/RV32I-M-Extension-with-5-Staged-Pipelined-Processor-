@@ -27,6 +27,7 @@ module third_register (
         waddrM        <= 5'b0;
         br_takenM     <= 1'b0;
   end
+
     else begin
         AddrM         <= AddrE;
         ALUResultM    <= ALUResult;

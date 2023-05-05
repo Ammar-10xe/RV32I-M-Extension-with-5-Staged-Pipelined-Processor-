@@ -6,7 +6,9 @@ module multiplier_iterative (
     output logic done,
     output logic mul_use
 );
-
+    logic signed [31:0] multiplicand_signed;
+    logic signed [31:0] multiplier_signed;
+    
     parameter [1:0] MUL     = 2'b00;
     parameter [1:0] MULH    = 2'b01;
     parameter [1:0] MULHSU  = 2'b10;
@@ -59,9 +61,13 @@ module multiplier_iterative (
                         MUL: begin
                             product_reg <= product_reg + ({32'b0, multiplicand_reg} << counter);
                         end
-MULH: begin
-                    signed_product_reg <= signed_product_reg + ($signed({32'b0, multiplicand_reg}) << (counter - 1));
-                end
+                        MULH: begin
+
+                            multiplicand_signed = $signed({1'b0, multiplicand_reg});
+                            multiplier_signed = $signed({1'b0, multiplier_reg});
+                            signed_product_reg <= signed_product_reg + (multiplicand_signed * multiplier_signed) << (counter-1);
+                        end
+
                         MULHSU: begin
                             if (operand1[31] == 1'b0) begin
                                 signed_product_reg <= signed_product_reg + ($signed({32'b0, multiplicand_reg}) << counter);
