@@ -1,5 +1,5 @@
 module program_counter (
-	input  logic clk,rst,StallF,mul_use,
+	input  logic clk,rst,StallF,mul_use,startE,
 	input  logic [31:0] PC,
 	output logic [31:0] Addr
 );

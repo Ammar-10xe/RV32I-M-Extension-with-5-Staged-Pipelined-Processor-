@@ -7,13 +7,14 @@ module InstMcheck (
     //For M extension     
     output logic [31:0] operand1, operand2,
     output logic [1:0]  mul_opcode,div_opcode,
-    input logic  [63:0] result_multiply,
+    input logic  [31:0] result_multiply,
     input logic  [31:0] result_divide,
-    input logic         ready,
+    input logic         done,
     input logic         mul_use
 );
 
 logic normal_mode = 1'b0;
+logic [31:0] muliply_result_input = 32'b0;
 //For M extension 
 parameter [4:0] MUL     = 5'b01011;
 parameter [4:0] MULH    = 5'b01100;
@@ -33,8 +34,8 @@ multiplier_iterative multiply(
     .operand1(operand1),
     .operand2(operand2),
     .mul_use(normal_mode),
-    .result_multiply(result_multiply),
-    .ready(ready));
+    .result_multiply(muliply_result_input),
+    .done(done));
 
 divider_32bit divide(
     .div_opcode(div_opcode),
@@ -42,94 +43,74 @@ divider_32bit divide(
     .operand2(operand2),
     .result_divide(result_divide));
 
+
+always @(posedge clk) begin
+    if (rst) begin
+        result_m <= 32'h0;
+    end else if (done) begin
+        result_m <= result_multiply;
+        flagM = 1'b1;
+    end
+    else begin
+      result_m = 32'b0;
+      flagM    = 1'b0;
+    end
+
+end
+
   always_comb begin
-    flagM = 1'b0;
-    result_m = 32'h0; // Reset the result_m
     operand1 = 32'h0; // Reset the operand1
     operand2 = 32'h0; // Reset the operand2
-    mul_opcode = 2'b00; // Reset the mul_opcode
+    mul_opcode = 2'bxx; // Reset the mul_opcode
     div_opcode = 2'b00; // Reset the div_opcode
     case(alu_opE)
       MUL: begin // Multiplication
       operand1 = SrcAE;
       operand2 = SrcBE;
       mul_opcode = 2'b00;
-      case(ready & ~mul_use)
-        1'b1: begin
-             $display("multiply result=  %h, ready= %d, mul_use= %d ",result_multiply,ready,mul_use);
-             result_m = result_multiply[31:0]; // Or [63:32] for higher 32 bits
-             flagM = 1'b1;
-        end
-      endcase   
     end
 
     MULH: begin // Signed Multiplication (upper 32 bits)
         operand1 = SrcAE;
         operand2 = SrcBE;
-        mul_opcode = 2'b01;
-      case(ready)
-          1'b1: begin 
-            result_m = result_multiply[63:32];
-            flagM = 1'b1;
-      end
-      endcase           
+        mul_opcode = 2'b01;       
     end
 
     MULHSU: begin // Signed-Unsigned Multiplication (upper 32 bits)
         operand1 = SrcAE;
         operand2 = SrcBE;
-        mul_opcode = 2'b10;
-        
-      case(ready)
-          1'b1: begin
-           result_m = result_multiply[63:32];
-           flagM = 1'b1;
-      end
-      endcase   
+        mul_opcode = 2'b10; 
     end
 
     MULHU: begin // Unsigned Multiplication (upper 32 bits)
         operand1 = SrcAE;
         operand2 = SrcBE;
-        mul_opcode = 2'b11;
-      case(ready)
-          1'b1:begin
-              result_m = result_multiply[63:32];
-              flagM = 1'b1;
-          end  
-      endcase          
+        mul_opcode = 2'b11;      
     end
 
     DIV: begin // Division
         operand1 = SrcAE;
         operand2 = SrcBE;
         div_opcode = 2'b00;
-        result_m = result_divide;
     end
 
     DIVU: begin // Unsigned Division
         operand1 = SrcAE;
         operand2 = SrcBE;
         div_opcode = 2'b01;
-        result_m = result_divide;
     end
 
     REM: begin // Remainder
         operand1 = SrcAE;
         operand2 = SrcBE;
         div_opcode = 2'b10;
-        result_m = result_divide;
     end
 
     REMU: begin // Unsigned Remainder
         operand1 = SrcAE;
         operand2 = SrcBE;
         div_opcode = 2'b11;
-        result_m = result_divide;
     end
-
-    default:  result_m = SrcAE + SrcBE;
     endcase
-
   end
 endmodule

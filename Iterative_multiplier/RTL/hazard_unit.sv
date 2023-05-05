@@ -1,5 +1,5 @@
 module Hazard_Unit (
-    input  logic       reg_wrM,reg_wrW,br_taken,ready,
+    input  logic       reg_wrM,reg_wrW,br_taken,mul_use,
     input logic  [1:0] wb_sel,
     input  logic [4:0] raddr1D,raddr2D,raddr1E,raddr2E,waddrE,waddrM,waddrW,
     output logic       StallF,StallD,FlushD,FlushE, 
@@ -44,7 +44,7 @@ module Hazard_Unit (
 // // Hazard detection for Stalling
 
 always_comb begin 
-    if (( ( wb_sel == 2'b10 ) & ((raddr1D == waddrE) | (raddr2D == waddrE))  )) begin 
+    if (( ( wb_sel == 2'b10 ) & ((raddr1D == waddrE) | (raddr2D == waddrE)) | mul_use  )) begin 
         StallD       = 1'b1;
         StallF       = StallD;   
     end
@@ -57,7 +57,7 @@ end
 
 //Hazard detecting for flushing 
 always_comb begin begin
-  if ( br_taken | ready ) begin
+  if ( br_taken | mul_use ) begin
     FlushD = 1'b1;
     FlushE = FlushD;
   end

@@ -1,5 +1,5 @@
-# vsim TopLevel_tb "+sig=result.txt" "+mem_init=mcheck.hex" 
-# Start time: 08:29:50 on May 04,2023
+# vsim -c -do "run -all" TopLevel_tb "+sig=result.txt" "+mem_init=mcheck.hex" 
+# Start time: 19:06:30 on May 05,2023
 # Loading sv_std.std
 # Loading work.TopLevel_tb
 # Loading work.TopLevel
@@ -31,10 +31,9 @@
 # Loading work.Hazard_Unit
 # Loading work.Memory_mux
 # ** Warning: (vsim-3015) [PCDPC] - Port size (20) does not match connection size (32) for port 'addr'. The port definition is at: Data_Memory.sv(6).
-#    Time: 0 ps  Iteration: 0  Instance: /TopLevel_tb/TOPLevel/Dmem File: TopLevel.sv Line: 237
-add wave sim:/TopLevel_tb/TOPLevel/*
-run -all
-# ** Note: $finish    : TopLevel_tb.sv(62)
-#    Time: 999 ps  Iteration: 1  Instance: /TopLevel_tb
-# 1
-# Break in Module TopLevel_tb at TopLevel_tb.sv line 62
+#    Time: 0 ps  Iteration: 0  Instance: /TopLevel_tb/TOPLevel/Dmem File: TopLevel.sv Line: 241
+# run -all
+# ** Note: $finish    : TopLevel_tb.sv(36)
+#    Time: 133 ps  Iteration: 1  Instance: /TopLevel_tb
+# End time: 19:06:31 on May 05,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 1

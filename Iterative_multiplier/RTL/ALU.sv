@@ -1,5 +1,5 @@
 module ALU (
-    input logic         flagM, 
+    input logic         flagM,mul_use,
     input  logic [4:0]  alu_opE,
     input  logic [31:0] SrcAE, SrcBE,result_m,
     output logic [31:0] ALUResult
@@ -29,14 +29,15 @@ parameter [4:0] REM     = 5'b10001;
 parameter [4:0] REMU    = 5'b10010;
 
 
-// //For multiplied calculated value
-// always_comb begin
-//   if(flagM)
-//     ALUResult = result_m;
-// end
 
 
   always_comb begin
+
+    if (flagM & ~mul_use) begin
+        ALUResult = result_m;
+    end
+
+
   case(alu_opE)
     
     ADD: ALUResult = SrcAE + SrcBE ;                             //Addition
@@ -47,7 +48,7 @@ parameter [4:0] REMU    = 5'b10010;
 
     SLT: ALUResult = ($signed(SrcAE) < $signed(SrcBE)) ? 1 : 0;  //Set Less than
 
-    SLTU: ALUResult = (SrcAE < SrcBE) ? 1 : 0;                    //Set Less than unsigned
+    SLTU:ALUResult = (SrcAE < SrcBE) ? 1 : 0;                    //Set Less than unsigned
 
     XOR: ALUResult = SrcAE ^ SrcBE;                              //LOgical xor
 
@@ -55,32 +56,43 @@ parameter [4:0] REMU    = 5'b10010;
 
     SRA: ALUResult = $signed(SrcAE) >>> SrcBE[4:0];              //Shift Right Arithmetic
 
-    OR: ALUResult = SrcAE | SrcBE;                              //Logical Or
+    OR:  ALUResult = SrcAE | SrcBE;                              //Logical Or
 
     AND: ALUResult = SrcAE & SrcBE;                              //Logical and
 
     LUI: ALUResult = SrcBE;                                      //Load Upper Immediate
 
-    //For Multipication 
+//     //For Multipication 
+//      MUL: begin
+//             case (flagM)
+//                 1'b1: ALUResult = result_m;
+//                 default: ALUResult = SrcAE + SrcBE;
+//             endcase
+//         end
 
-    MUL: case (flagM)
-            1'b1: ALUResult = result_m;
-    endcase
+//         MULH: begin
+//             case (flagM)
+//                 1'b1: ALUResult = result_m;
+//                 default: ALUResult = SrcAE + SrcBE;
+//             endcase
+//         end
 
-    MULH: case (flagM)
-            1'b1: ALUResult = result_m; 
-    endcase
+//         MULHSU: begin
+//             case (flagM)
+//                 1'b1: ALUResult = result_m;
+//                 default: ALUResult = SrcAE + SrcBE;
+//             endcase
+//         end
 
-    MULHSU: case (flagM)
-            1'b1: ALUResult = result_m; 
-    endcase
+//         MULHU: begin
+//             case (flagM)
+//                 1'b1: ALUResult = result_m;
+//                 default: ALUResult = SrcAE + SrcBE;
+//             endcase
+        // end
 
-    MULHSU: case (flagM)
-            1'b1: ALUResult = result_m;
-    endcase
 
-
-    default:  ALUResult = SrcAE + SrcBE;
+//     default:  ALUResult = SrcAE + SrcBE;
     endcase
 
   end

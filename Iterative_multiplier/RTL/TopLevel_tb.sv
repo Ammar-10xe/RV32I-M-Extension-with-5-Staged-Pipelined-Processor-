@@ -28,7 +28,7 @@ begin
     
 if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultW == 32'h00000f00))
 begin
-    $fwrite(f,"%h\n", TOPLevel.ALUResultW);
+    $fwrite(f,"%h\n", TOPLevel.data_wr);
 end
 
 if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultW == 32'hcafebeef))
@@ -39,8 +39,9 @@ end
 
 // always_ff @(posedge clk)
 // begin
-//     // if(!TOPLevel.Alu.result_multiply)
-//     $fwrite(f,"%h\n", TOPLevel.result_m);
+
+//     $fwrite(f,"mul_use=%h, done=%h, start=%h, startE=%h, operand1=%h, operand2=%h, mul_opcode=%b, mulresult=%h, result_m=%h,flagM=%b, alu_result=%h, alu_opE=5b'%b\n",
+//     TOPLevel.mul_use,TOPLevel.done,TOPLevel.start,TOPLevel.startE,TOPLevel.operand1,TOPLevel.operand2,TOPLevel.mul_opcode,TOPLevel.result_multiply,TOPLevel.result_m,TOPLevel.flagM,TOPLevel.ALUResultM,TOPLevel.alu_opE);
 
 // end
 
@@ -52,7 +53,7 @@ begin
 end
 
 // parameter count = 500000;
-parameter count = 500;
+parameter count = 5000;
 reg [31:0] loop;
 
 initial begin

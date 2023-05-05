@@ -11,11 +11,11 @@ module TopLevel (input logic clk,rst);
     
     //for Alu M extension 
     logic [31:0] operand1, operand2, result_divide, ALU_result_divide,result_m;
-    logic [63:0] result_multiply, ALU_result_multiply;
+    logic [63:0]  ALU_result_multiply;
 
-    logic [31:0] ALU_operand1, ALU_operand2;
+    logic [31:0] result_multiply,ALU_operand1, ALU_operand2;
     logic [1:0]  mul_opcode,div_opcode;
-    logic ready,flagM,start,startE,mul_use;
+    logic done,flagM,start,startE,mul_use;
 
 
 InstMcheck Mcheck (
@@ -34,7 +34,7 @@ InstMcheck Mcheck (
     .div_opcode(div_opcode),
     .result_multiply(result_multiply),
     .result_divide(result_divide),
-    .ready(ready));
+    .done(done));
 
 
 multiplier_iterative multiplier (
@@ -45,7 +45,7 @@ multiplier_iterative multiplier (
     .operand1(operand1),
     .operand2(operand2),
     .result_multiply(result_multiply),
-    .ready(ready),
+    .done(done),
     .mul_use(mul_use)
     );
 
@@ -73,6 +73,7 @@ program_counter ProgCouner (
     .rst(rst),
     .StallF(StallF),
     .mul_use(mul_use),
+    .startE(startE),
     .PC(PC),
     .Addr(Addr));
 
@@ -189,6 +190,7 @@ BranchCond Branchcond(
 ALU Alu(
     .alu_opE(alu_opE),
     .flagM(flagM),
+    .mul_use(mul_use),
     .SrcAE(SrcAE),
     .SrcBE(SrcBE),
     .result_m(result_m),
@@ -198,6 +200,8 @@ ALU Alu(
 third_register ThirdReg(
     .clk(clk),
     .rst(rst),
+    .flagM(flagM),
+    .result_m(result_m),
     .reg_wrE(reg_wrE),
     .br_taken(br_taken),
     .wb_selE(wb_selE),
@@ -276,6 +280,8 @@ MuxResult Muxresult(
     .wdata(wdata));
 
 controller Controller(
+    .mul_use(mul_use),
+    .startE(startE),
     .start(start),
     .InstD(InstD),
     .reg_wr(reg_wr),
@@ -291,7 +297,7 @@ Hazard_Unit HazardUnit(
     .reg_wrM(reg_wrM),
     .reg_wrW(reg_wrW),
     .br_taken(br_taken),
-    .ready(ready),
+    .mul_use(mul_use),
     .wb_sel(wb_selE),
     .raddr1D(raddr1D),
     .raddr2D(raddr2D),
