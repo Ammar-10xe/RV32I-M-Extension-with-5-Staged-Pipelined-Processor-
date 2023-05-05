@@ -32,6 +32,7 @@ module multiplier_iterative (
             processing <= 1'b0;
             mul_use <= 1'b0;
             current_mul_opcode <= 2'b0;
+            result_multiply <= 32'b0;
         end 
         else begin
             if (startE) begin
@@ -48,6 +49,7 @@ module multiplier_iterative (
                 counter <= 6'b0;
                 done <= 1'b0;
                 processing <= 1'b1;
+                result_multiply <= 32'b0;
             end
             if (processing) begin
                 mul_use <= 1'b1;
@@ -74,6 +76,7 @@ module multiplier_iterative (
                     end
                     multiplier_reg <= multiplier_reg >> 1;
                     counter <= counter + 1'b1;
+                    result_multiply <= 32'b0;
                 end else begin
                     processing <= 1'b0;
                     done <= 1'b1;

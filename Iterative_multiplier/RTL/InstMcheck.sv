@@ -47,7 +47,7 @@ divider_32bit divide(
 always @(posedge clk) begin
     if (rst) begin
         result_m <= 32'h0;
-    end else if (done) begin
+    end else if (done & ~mul_use) begin
         result_m <= result_multiply;
         flagM = 1'b1;
     end

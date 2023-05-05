@@ -70,6 +70,8 @@ begin
                     endcase
                 end
                 7'b0000001: begin
+
+                    start = 1'b1;
                     case (funct3)
                         3'b000: alu_op = MUL;
                         3'b001: alu_op = MULH;

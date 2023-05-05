@@ -33,7 +33,7 @@ parameter [4:0] REMU    = 5'b10010;
 
   always_comb begin
 
-    if (flagM & ~mul_use) begin
+    if (flagM ) begin
         ALUResult = result_m;
     end
 
@@ -62,37 +62,13 @@ parameter [4:0] REMU    = 5'b10010;
 
     LUI: ALUResult = SrcBE;                                      //Load Upper Immediate
 
-//     //For Multipication 
-//      MUL: begin
-//             case (flagM)
-//                 1'b1: ALUResult = result_m;
-//                 default: ALUResult = SrcAE + SrcBE;
-//             endcase
-//         end
+   
 
-//         MULH: begin
-//             case (flagM)
-//                 1'b1: ALUResult = result_m;
-//                 default: ALUResult = SrcAE + SrcBE;
-//             endcase
-//         end
+   
+    
 
-//         MULHSU: begin
-//             case (flagM)
-//                 1'b1: ALUResult = result_m;
-//                 default: ALUResult = SrcAE + SrcBE;
-//             endcase
-//         end
-
-//         MULHU: begin
-//             case (flagM)
-//                 1'b1: ALUResult = result_m;
-//                 default: ALUResult = SrcAE + SrcBE;
-//             endcase
-        // end
-
-
-//     default:  ALUResult = SrcAE + SrcBE;
+    // default:  ALUResult = SrcAE + SrcBE;
+        // default:  ALUResult = 32'b0;
     endcase
 
   end

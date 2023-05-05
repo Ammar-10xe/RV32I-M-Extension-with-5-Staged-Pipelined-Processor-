@@ -200,8 +200,8 @@ ALU Alu(
 third_register ThirdReg(
     .clk(clk),
     .rst(rst),
-    .flagM(flagM),
-    .result_m(result_m),
+    // .flagM(flagM),
+    // .result_m(result_m),
     .reg_wrE(reg_wrE),
     .br_taken(br_taken),
     .wb_selE(wb_selE),
@@ -298,6 +298,7 @@ Hazard_Unit HazardUnit(
     .reg_wrW(reg_wrW),
     .br_taken(br_taken),
     .mul_use(mul_use),
+    .startE(startE),
     .wb_sel(wb_selE),
     .raddr1D(raddr1D),
     .raddr2D(raddr2D),

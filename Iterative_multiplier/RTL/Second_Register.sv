@@ -27,14 +27,16 @@ module second_register (
             sel_BE        <= 1'bx;
             wb_selE       <= 2'bx;
             funct3E       <= 3'bx;
-            instr_opcodeE <= 7'bx;
-            alu_opE       <= 5'b0;
+            instr_opcodeE <= 7'b0;
+            alu_opE       <= 5'bx;
             raddr1E       <= 5'b0;
             raddr2E       <= 5'b0;
             waddrE        <= 5'b0;
             startE        <= 1'b0;
 
         end
+        // else if ()
+            // alu_opE <= alu_opE;
         else if ( FlushE ) begin
             AddrE         <= 32'b0;
             rdata1E       <= 32'b0;
