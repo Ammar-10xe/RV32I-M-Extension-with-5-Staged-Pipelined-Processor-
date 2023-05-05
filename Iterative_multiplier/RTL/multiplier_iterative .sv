@@ -59,9 +59,9 @@ module multiplier_iterative (
                         MUL: begin
                             product_reg <= product_reg + ({32'b0, multiplicand_reg} << counter);
                         end
-                        MULH: begin
-                            signed_product_reg <= signed_product_reg + ($signed({32'b0, multiplicand_reg}) << counter);
-                        end
+MULH: begin
+                    signed_product_reg <= signed_product_reg + ($signed({32'b0, multiplicand_reg}) << (counter - 1));
+                end
                         MULHSU: begin
                             if (operand1[31] == 1'b0) begin
                                 signed_product_reg <= signed_product_reg + ($signed({32'b0, multiplicand_reg}) << counter);

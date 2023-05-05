@@ -25,6 +25,47 @@ parameter [4:0] DIVU    = 5'b10000;
 parameter [4:0] REM     = 5'b10001;
 parameter [4:0] REMU    = 5'b10010;
 
+
+// typedef enum logic [1:0] {IDLE, PROCESS, WAIT, DONE} state_t;
+// state_t state, next_state;
+// always_ff @(posedge clk or posedge rst) begin
+//     if (rst) begin
+//         state <= IDLE;
+//     end else begin
+//         state <= next_state;
+//     end
+// end
+
+// always_comb begin
+//     next_state = state;
+    
+//     case(state)
+//         IDLE: begin
+//             if (startE) begin
+//                 next_state = PROCESS;
+//             end
+//         end
+        
+//         PROCESS: begin
+//             if (done) begin
+//                 next_state = DONE;
+//             end else begin
+//                 next_state = WAIT;
+//             end
+//         end
+        
+//         WAIT: begin
+//             if (done) begin
+//                 next_state = DONE;
+//             end
+//         end
+        
+//         DONE: begin
+//             next_state = IDLE;
+//         end
+//     endcase
+// end
+
 // instances of multiplier and divider modules
 multiplier_iterative multiply( 
     .clk(clk),
