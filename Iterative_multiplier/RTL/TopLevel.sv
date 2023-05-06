@@ -37,17 +37,17 @@ multiplier_controller Multiplier_Controller (
     .done(done));
 
 
-multiplier_iterative multiplier (
-    .clk(clk),
-    .rst(rst),
-    .startE(startE),
-    .mul_opcode(mul_opcode),
-    .operand1(operand1),
-    .operand2(operand2),
-    .result_multiply(result_multiply),
-    .done(done),
-    .mul_use(mul_use)
-    );
+// multiplier_iterative multiplier (
+//     .clk(clk),
+//     .rst(rst),
+//     .startE(startE),
+//     .mul_opcode(mul_opcode),
+//     .operand1(operand1),
+//     .operand2(operand2),
+//     .result_multiply(result_multiply),
+//     .done(done),
+//     .mul_use(mul_use)
+//     );
 
 divider_32bit divider_inst (
     .div_opcode(div_opcode),
