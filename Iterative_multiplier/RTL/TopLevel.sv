@@ -119,7 +119,6 @@ second_register SecondReg(
     .clk(clk),
     .rst(rst),
     .start(start),
-    .reset_hold_start(done),
     .startE(startE),
     .reg_wr(reg_wr),
     .sel_A(sel_A),

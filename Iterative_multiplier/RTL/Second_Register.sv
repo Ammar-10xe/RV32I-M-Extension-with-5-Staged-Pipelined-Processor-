@@ -1,5 +1,4 @@
 module second_register (
-    input logic reset_hold_start,
     input  logic         clk,rst,reg_wr,sel_A,sel_B,FlushE,start,
     input  logic [1:0]  wb_sel,
     input  logic [2:0]  funct3,
@@ -35,10 +34,7 @@ module second_register (
             raddr2E       <= 5'b0;
             waddrE        <= 5'b0;
             startE        <= 1'b0;
-            hold_start    <= 1'b0;
         end
-        // else if ()
-            // alu_opE <= alu_opE;
         else if ( FlushE ) begin
             AddrE         <= 32'b0;
             rdata1E       <= 32'b0;
@@ -56,7 +52,6 @@ module second_register (
             raddr2E       <= 5'b0;
             waddrE        <= 5'b0;
             startE        <=1'b0;
-            hold_start    <= 1'b0;
             
         end
         else begin
@@ -75,25 +70,7 @@ module second_register (
             raddr1E       <= raddr1D;
             raddr2E       <= raddr2D;
             waddrE        <= waddrD;
-
-            if (!hold_start) begin
-                startE <= start;
-                if (start) begin
-                    hold_start <= 1'b1;
-                end
-            end else begin
-                startE <= 1'b0;
-            end
-        end
-    end
-
-    // Add an input signal to reset hold_start when the multiplier operation is completed
-
-    always_ff @(posedge clk or posedge rst) begin
-        if (rst) begin
-            hold_start <= 1'b0;
-        end else if (reset_hold_start) begin
-            hold_start <= 1'b0;
+            startE        <=start;
         end
     end
 
