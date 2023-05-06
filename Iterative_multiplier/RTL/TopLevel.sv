@@ -18,7 +18,7 @@ module TopLevel (input logic clk,rst);
     logic done,flagM,start,startE,mul_use;
 
 
-InstMcheck Mcheck (
+multiplier_controller Multiplier_Controller (
     .clk(clk),
     .rst(rst),
     .startE(startE),
