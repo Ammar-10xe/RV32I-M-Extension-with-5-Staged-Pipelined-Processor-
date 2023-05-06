@@ -33,7 +33,7 @@ parameter [4:0] REMU    = 5'b10010;
 
   always_comb begin
   
-    if (flagM ) begin
+    if ( flagM ) begin
         ALUResult = result_m;
     end
 

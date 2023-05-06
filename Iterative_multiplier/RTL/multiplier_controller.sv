@@ -1,4 +1,4 @@
-module InstMcheck (
+module multiplier_controller (
     input               clk,rst,startE,
     input  logic [4:0]  alu_opE,
     input  logic [31:0] SrcAE, SrcBE,
