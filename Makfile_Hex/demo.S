@@ -26,7 +26,7 @@ begin_sig:
     .fill 4, 4, 0xcafebeef
 end_sig:
 exit:
-    li a1,0xff000000
+    li a1,0x00000f00
     la a2,begin_sig
     la a3,end_sig
     
