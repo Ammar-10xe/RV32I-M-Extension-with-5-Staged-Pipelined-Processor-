@@ -40,7 +40,7 @@ end
 // always_ff @(posedge clk)
 // begin
 //     // if(!TOPLevel.Alu.result_multiply)
-//     $fwrite(f,"Instr= %h, alu_opE=%b, ALUResult=%h,\n", TOPLevel.InstE,TOPLevel.alu_op,TOPLevel.ALUResult);
+//     $fwrite(f,"Instr= %h, alu_opE=%b,MULResult=%h, ALUResult=%h,\n", TOPLevel.InstE,TOPLevel.alu_op,TOPLevel.result_multiply,TOPLevel.ALUResult);
 
 // end
 
@@ -51,8 +51,8 @@ begin
     rst<=0;
 end
 
-// parameter count = 500000;
-parameter count = 1000;
+parameter count = 500000;
+// parameter count = 1000;
 reg [31:0] loop;
 
 initial begin
