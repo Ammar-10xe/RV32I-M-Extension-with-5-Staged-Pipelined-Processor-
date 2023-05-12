@@ -58,25 +58,19 @@ module multiplier_iterative (
             if (counter < 32) begin
                 if (multiplier_reg[0] == 1'b1) begin
                     case (current_mul_opcode)
-                        MUL: begin
+                        MUL,MULHU: begin
                             product_reg <= product_reg + ({32'b0, multiplicand_reg} << counter);
                         end
                         MULH: begin
-
-                            multiplicand_signed = $signed({1'b0, multiplicand_reg});
-                            multiplier_signed = $signed({1'b0, multiplier_reg});
-                            signed_product_reg <= signed_product_reg + (multiplicand_signed * multiplier_signed) << (counter-1);
+                            multiplicand_signed = $signed({operand1[31], multiplicand_reg});
+                            signed_product_reg <= signed_product_reg + ($signed({multiplicand_signed, 32'b0}) << counter);
                         end
-
                         MULHSU: begin
                             if (operand1[31] == 1'b0) begin
                                 signed_product_reg <= signed_product_reg + ($signed({32'b0, multiplicand_reg}) << counter);
                             end else begin
-                                signed_product_reg <= signed_product_reg + ($signed({32'b0, -operand1}) << counter);
+                                signed_product_reg <= signed_product_reg - ($signed({32'b0, multiplicand_reg}) << counter);
                             end
-                        end
-                        MULHU: begin
-                            product_reg <= product_reg + ({32'b0, multiplicand_reg} << counter);
                         end
                     endcase
                 end
