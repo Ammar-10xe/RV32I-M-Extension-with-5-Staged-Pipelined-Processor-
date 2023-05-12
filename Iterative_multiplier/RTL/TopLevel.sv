@@ -15,7 +15,7 @@ module TopLevel (input logic clk,rst);
 
     logic [31:0] result_multiply,ALU_operand1, ALU_operand2;
     logic [1:0]  mul_opcode,div_opcode;
-    logic done,flagM,start,startE,mul_use,tmp,StallE,lwstall,lwstallM,StallM,FlushES;
+    logic done,doneD,flagM,flagD,start,startE,mul_use,tmp,StallE,lwstall,lwstallM,StallM,FlushES,startD,startM;
 
 
 multiplier_controller Multiplier_Controller (
@@ -28,6 +28,7 @@ multiplier_controller Multiplier_Controller (
     .SrcAE(SrcAE),
     .SrcBE(SrcBE),
     .flagM(flagM),
+    .flagD(flagD),
     .result_m(result_m),
     .operand1(operand1),
     .operand2(operand2),
@@ -35,7 +36,8 @@ multiplier_controller Multiplier_Controller (
     .div_opcode(div_opcode),
     .result_multiply(result_multiply),
     .result_divide(result_divide),
-    .done(done));
+    .done(done),
+    .doneD(doneD));
 
 
 multiplier_iterative multiplier (
@@ -51,9 +53,13 @@ multiplier_iterative multiplier (
     );
 
 divider_32bit divider_inst (
+    .clk(clk),
+    .rst(rst),
+    .startD(startD),
     .div_opcode(div_opcode),
     .operand1(operand1),
     .operand2(operand2),
+    .doneD(doneD),
     .result_divide(result_divide));
 
 
@@ -198,6 +204,7 @@ BranchCond Branchcond(
 ALU Alu(
     .alu_opE(alu_opE),
     .flagM(flagM),
+    .flagD(flagD),
     .startE(startE),
     .mul_use(mul_use),
     .SrcAE(SrcAE),
