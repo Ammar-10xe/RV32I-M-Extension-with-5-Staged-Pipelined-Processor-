@@ -2,7 +2,7 @@ module multiplier_controller (
     input               clk,rst,startE,
     input  logic [4:0]  alu_opE,
     input  logic [31:0] SrcAE, SrcBE,
-    output logic        flagM,tmp,flagD,
+    output logic        flagM,tmp,flagD,startD,startM,
     output logic [31:0] result_m,
     //For M extension     
     output logic [31:0] operand1, operand2,
@@ -13,7 +13,6 @@ module multiplier_controller (
     input logic         mul_use
 );
 
-logic startD,startM;
 logic normal_mode = 1'b0;
 logic [31:0] muliply_result_input = 32'b0;
 logic [31:0] divide_result_input  = 32'b0;
@@ -32,7 +31,7 @@ multiplier_iterative multiply(
     .clk(clk),
     .rst(rst),
     // .startE(tmp),
-    .startE(startM),
+    .startM(startM),
     .mul_opcode(mul_opcode),
     .operand1(operand1),
     .operand2(operand2),

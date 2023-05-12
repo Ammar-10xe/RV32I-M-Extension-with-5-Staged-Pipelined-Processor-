@@ -88,7 +88,7 @@ R5
 R1
 vAddrW_Plus4
 Z7 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
-Z8 !s110 1683927968
+Z8 !s110 1683928533
 !i10b 1
 !s100 X90aE>4Xa73ERnc?Kk>no3
 Z9 !s11b Dg1SIo80bB@j0V0VzS_@n1
@@ -99,13 +99,13 @@ Z11 d/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Pr
 Z12 w1683909649
 8AddrW_Plus4.sv
 FAddrW_Plus4.sv
-!i122 3796
+!i122 3802
 Z13 L0 1 8
 Z14 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z15 !s108 1683927968.000000
+Z15 !s108 1683928533.000000
 !s107 wokingmul.sv|TopLevel_tb.sv|TopLevel.sv|Third_Register.sv|Second_Register.sv|Register_file.sv|program_Counter.sv|PCPlus4.sv|mux_selB.sv|mux_selA.sv|MuxResult.sv|MuxPC.sv|multiplier_iterative .sv|multiplier_controller.sv|Memory_mux.sv|LoadStore_Unit.sv|Instruction_Memory.sv|instruction fetch.sv|Immediate_Gen.sv|hazard_unit.sv|Fourth_Register.sv|forward_muxB.sv|forward_muxA.sv|First_Register.sv|divider.sv|Data_Memory.sv|controller.sv|BranchCond.sv|ALU.sv|AddrW_Plus4.sv|
 Z16 !s90 AddrW_Plus4.sv|ALU.sv|BranchCond.sv|controller.sv|Data_Memory.sv|divider.sv|First_Register.sv|forward_muxA.sv|forward_muxB.sv|Fourth_Register.sv|hazard_unit.sv|Immediate_Gen.sv|instruction fetch.sv|Instruction_Memory.sv|LoadStore_Unit.sv|Memory_mux.sv|multiplier_controller.sv|multiplier_iterative .sv|MuxPC.sv|MuxResult.sv|mux_selA.sv|mux_selB.sv|PCPlus4.sv|program_Counter.sv|Register_file.sv|Second_Register.sv|Third_Register.sv|TopLevel.sv|TopLevel_tb.sv|wokingmul.sv|
 !i113 1
@@ -124,7 +124,7 @@ R11
 w1683924648
 8ALU.sv
 FALU.sv
-!i122 3796
+!i122 3802
 L0 1 69
 R14
 r1
@@ -149,7 +149,7 @@ R11
 R12
 8BranchCond.sv
 FBranchCond.sv
-!i122 3796
+!i122 3802
 L0 1 45
 R14
 r1
@@ -174,7 +174,7 @@ R11
 R12
 8controller.sv
 Fcontroller.sv
-!i122 3796
+!i122 3802
 L0 1 182
 R14
 r1
@@ -187,7 +187,7 @@ R16
 R4
 vData_Memory
 R7
-Z18 !s110 1683927969
+R8
 !i10b 1
 !s100 R02ilZ0QLhek_I1bfWJSU3
 R9
@@ -198,7 +198,7 @@ R11
 R12
 8Data_Memory.sv
 FData_Memory.sv
-!i122 3796
+!i122 3802
 L0 1 27
 R14
 r1
@@ -212,7 +212,7 @@ R4
 n@data_@memory
 vdivider_32bit
 R7
-R18
+R8
 !i10b 1
 !s100 oO45TD@O3][^A_fk[zPK93
 R9
@@ -223,7 +223,7 @@ R11
 w1683927738
 8divider.sv
 Fdivider.sv
-!i122 3796
+!i122 3802
 L0 1 59
 R14
 r1
@@ -236,7 +236,7 @@ R16
 R4
 vfirst_register
 R7
-R18
+R8
 !i10b 1
 !s100 QFin8MVVi=ET7NhKCHh=F2
 R9
@@ -247,8 +247,8 @@ R11
 R12
 8First_Register.sv
 FFirst_Register.sv
-!i122 3796
-Z19 L0 1 29
+!i122 3802
+Z18 L0 1 29
 R14
 r1
 !s85 0
@@ -260,7 +260,7 @@ R16
 R4
 vforward_muxA
 R7
-R18
+R8
 !i10b 1
 !s100 EHdoJR4;dP[f_en9a24J13
 R9
@@ -271,8 +271,8 @@ R11
 R12
 8forward_muxA.sv
 Fforward_muxA.sv
-!i122 3796
-Z20 L0 1 13
+!i122 3802
+Z19 L0 1 13
 R14
 r1
 !s85 0
@@ -285,7 +285,7 @@ R4
 nforward_mux@a
 vforward_muxB
 R7
-R18
+R8
 !i10b 1
 !s100 79_:84:DJ5imdN4foC0Kj2
 R9
@@ -296,8 +296,8 @@ R11
 R12
 8forward_muxB.sv
 Fforward_muxB.sv
-!i122 3796
-R20
+!i122 3802
+R19
 R14
 r1
 !s85 0
@@ -310,7 +310,7 @@ R4
 nforward_mux@b
 vfourt_register
 R7
-R18
+R8
 !i10b 1
 !s100 zI6z]gN@blJ6>A0DcO_eD2
 R9
@@ -321,7 +321,7 @@ R11
 R12
 8Fourth_Register.sv
 FFourth_Register.sv
-!i122 3796
+!i122 3802
 L0 1 32
 R14
 r1
@@ -334,7 +334,7 @@ R16
 R4
 vHazard_Unit
 R7
-R18
+R8
 !i10b 1
 !s100 mgFSN:5<cmV405o_z3d:J0
 R9
@@ -345,7 +345,7 @@ R11
 R12
 8hazard_unit.sv
 Fhazard_unit.sv
-!i122 3796
+!i122 3802
 L0 1 92
 R14
 r1
@@ -359,7 +359,7 @@ R4
 n@hazard_@unit
 vimmediate_gen
 R7
-R18
+R8
 !i10b 1
 !s100 jjVgB7JTQi`z>JK29UV8]2
 R9
@@ -370,8 +370,8 @@ R11
 R12
 8Immediate_Gen.sv
 FImmediate_Gen.sv
-!i122 3796
-Z21 L0 1 26
+!i122 3802
+Z20 L0 1 26
 R14
 r1
 !s85 0
@@ -390,7 +390,7 @@ R9
 ITQGOik7>;N6;F_]OW?O2d1
 R10
 S1
-Z22 d/home/xe-lpt-71/Documents/M_extension_Work/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL
+Z21 d/home/xe-lpt-71/Documents/M_extension_Work/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL
 w1683345731
 8multiplier_controller4.sv
 Fmultiplier_controller4.sv
@@ -408,7 +408,7 @@ R4
 n@inst@mcheck
 vInstruction_Fetch
 R7
-R18
+R8
 !i10b 1
 !s100 ?XS_kX4a]adCYHnBHRT=a3
 R9
@@ -419,7 +419,7 @@ R11
 R12
 8instruction fetch.sv
 Finstruction fetch.sv
-!i122 3796
+!i122 3802
 L0 1 11
 R14
 r1
@@ -433,7 +433,7 @@ R4
 n@instruction_@fetch
 vInstruction_Memory
 R7
-R18
+R8
 !i10b 1
 !s100 ed;XofnBRnHHN]a1^40?K0
 R9
@@ -444,8 +444,8 @@ R11
 R12
 8Instruction_Memory.sv
 FInstruction_Memory.sv
-!i122 3796
-R21
+!i122 3802
+R20
 R14
 r1
 !s85 0
@@ -458,7 +458,7 @@ R4
 n@instruction_@memory
 vLoadStore_Unit
 R7
-R18
+R8
 !i10b 1
 !s100 HhcM^BQ?z;784VNCzHzNF0
 R9
@@ -469,7 +469,7 @@ R11
 R12
 8LoadStore_Unit.sv
 FLoadStore_Unit.sv
-!i122 3796
+!i122 3802
 L0 1 121
 R14
 r1
@@ -483,7 +483,7 @@ R4
 n@load@store_@unit
 vMemory_mux
 R7
-R18
+R8
 !i10b 1
 !s100 A5;UG`kUK_bL8^2kYNPal1
 R9
@@ -494,7 +494,7 @@ R11
 R12
 8Memory_mux.sv
 FMemory_mux.sv
-!i122 3796
+!i122 3802
 L0 1 17
 R14
 r1
@@ -515,43 +515,43 @@ R9
 IhY1hDZIGMGeYXZJlheV3U3
 R10
 S1
-Z23 d/home/xe-lpt-71/Documents/M_extension_Work/github_Mextension/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Boot'sEncoding/RTL
+Z22 d/home/xe-lpt-71/Documents/M_extension_Work/github_Mextension/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Boot'sEncoding/RTL
 w1683066681
-Z24 8multiplier.sv
-Z25 Fmultiplier.sv
+Z23 8multiplier.sv
+Z24 Fmultiplier.sv
 !i122 2945
-Z26 L0 25 44
+Z25 L0 25 44
 R14
 r1
 !s85 0
 31
 !s108 1683070354.000000
-Z27 !s107 wokingmul.sv|TopLevel_tb.sv|TopLevel.sv|Third_Register.sv|Second_Register.sv|Register_file.sv|program_Counter.sv|PCPlus4.sv|mux_selB.sv|mux_selA.sv|MuxResult.sv|MuxPC.sv|multiplier.sv|multiplier_iterative .sv|multiplier_booth.sv|Memory_mux.sv|LoadStore_Unit.sv|Instruction_Memory.sv|instruction fetch.sv|InstMcheck.sv|Immediate_Gen.sv|hazard_unit.sv|Fourth_Register.sv|forward_muxB.sv|forward_muxA.sv|First_Register.sv|divider.sv|Data_Memory.sv|controller.sv|BranchCond.sv|ALU.sv|AddrW_Plus4.sv|
-Z28 !s90 AddrW_Plus4.sv|ALU.sv|BranchCond.sv|controller.sv|Data_Memory.sv|divider.sv|First_Register.sv|forward_muxA.sv|forward_muxB.sv|Fourth_Register.sv|hazard_unit.sv|Immediate_Gen.sv|InstMcheck.sv|instruction fetch.sv|Instruction_Memory.sv|LoadStore_Unit.sv|Memory_mux.sv|multiplier_booth.sv|multiplier_iterative .sv|multiplier.sv|MuxPC.sv|MuxResult.sv|mux_selA.sv|mux_selB.sv|PCPlus4.sv|program_Counter.sv|Register_file.sv|Second_Register.sv|Third_Register.sv|TopLevel.sv|TopLevel_tb.sv|wokingmul.sv|
+Z26 !s107 wokingmul.sv|TopLevel_tb.sv|TopLevel.sv|Third_Register.sv|Second_Register.sv|Register_file.sv|program_Counter.sv|PCPlus4.sv|mux_selB.sv|mux_selA.sv|MuxResult.sv|MuxPC.sv|multiplier.sv|multiplier_iterative .sv|multiplier_booth.sv|Memory_mux.sv|LoadStore_Unit.sv|Instruction_Memory.sv|instruction fetch.sv|InstMcheck.sv|Immediate_Gen.sv|hazard_unit.sv|Fourth_Register.sv|forward_muxB.sv|forward_muxA.sv|First_Register.sv|divider.sv|Data_Memory.sv|controller.sv|BranchCond.sv|ALU.sv|AddrW_Plus4.sv|
+Z27 !s90 AddrW_Plus4.sv|ALU.sv|BranchCond.sv|controller.sv|Data_Memory.sv|divider.sv|First_Register.sv|forward_muxA.sv|forward_muxB.sv|Fourth_Register.sv|hazard_unit.sv|Immediate_Gen.sv|InstMcheck.sv|instruction fetch.sv|Instruction_Memory.sv|LoadStore_Unit.sv|Memory_mux.sv|multiplier_booth.sv|multiplier_iterative .sv|multiplier.sv|MuxPC.sv|MuxResult.sv|mux_selA.sv|mux_selB.sv|PCPlus4.sv|program_Counter.sv|Register_file.sv|Second_Register.sv|Third_Register.sv|TopLevel.sv|TopLevel_tb.sv|wokingmul.sv|
 !i113 1
 R4
 vmultiplier2
 R7
-Z29 !s110 1683165387
+Z28 !s110 1683165387
 !i10b 1
 !s100 ISePe]7h;A_idgJBNEl>O2
 R9
 IL5>b6fW1O`6`QaSXec74?3
 R10
 S1
-R22
-Z30 w1683163997
+R21
+Z29 w1683163997
+R23
 R24
-R25
 !i122 2967
-R26
+R25
 R14
 r1
 !s85 0
 31
-Z31 !s108 1683165387.000000
+Z30 !s108 1683165387.000000
+R26
 R27
-R28
 !i113 1
 R4
 vmultiplier_32bit
@@ -563,10 +563,10 @@ R9
 Ig7B`5X::I:9o:jA7M>nM43
 R10
 S1
-R23
+R22
 w1683047562
+R23
 R24
-R25
 !i122 2908
 L0 1 23
 R14
@@ -580,15 +580,15 @@ r1
 R4
 vmultiplier_booth
 R7
-R29
+R28
 !i10b 1
 !s100 lc=61G0SlJHH4ocK^CK5i0
 R9
 Ig^jjCioA0O^dHWX@?d1CI2
 R10
 S1
-R22
-R30
+R21
+R29
 8multiplier_booth.sv
 Fmultiplier_booth.sv
 !i122 2967
@@ -597,26 +597,26 @@ R14
 r1
 !s85 0
 31
-R31
+R30
+R26
 R27
-R28
 !i113 1
 R4
 vmultiplier_controller
 R7
-R18
+R8
 !i10b 1
-!s100 GJISnF[;NOXY_:mE8]2kf1
+!s100 ko_gj8TVT5a9[b@<MOV[T3
 R9
-IXg;POin>SZb;PfR8mUl^J0
+Ia`ad>Dl83bIj55T6eGRl]0
 R10
 S1
 R11
-w1683927965
+w1683928510
 8multiplier_controller.sv
 Fmultiplier_controller.sv
-!i122 3796
-L0 1 162
+!i122 3802
+L0 1 161
 R14
 r1
 !s85 0
@@ -628,18 +628,18 @@ R16
 R4
 vmultiplier_iterative
 R7
-R18
+R8
 !i10b 1
-!s100 ?hNkX3EG83MXjl6;866^d1
+!s100 668K;aQBNke20VAALki4o1
 R9
-ILFKTJ>beM>gbE0YMnC8^f0
+Ie_>C;B5>QlZIL0G?Z<>`>1
 R10
 S1
 R11
-w1683911680
+w1683928476
 8multiplier_iterative .sv
 Fmultiplier_iterative .sv
-!i122 3796
+!i122 3802
 L0 1 101
 R14
 r1
@@ -652,7 +652,7 @@ R16
 R4
 vmultiplier_iterative1
 R7
-R18
+R8
 !i10b 1
 !s100 L^z@1l3NZGX9S<]UK6BQH0
 R9
@@ -663,7 +663,7 @@ R11
 R12
 8wokingmul.sv
 Fwokingmul.sv
-!i122 3796
+!i122 3802
 L0 1 82
 R14
 r1
@@ -676,7 +676,7 @@ R16
 R4
 vMux_PC
 R7
-R18
+R8
 !i10b 1
 !s100 ^A>ZK5?mW^BJ^6FVh_fcJ1
 R9
@@ -687,8 +687,8 @@ R11
 R12
 8MuxPC.sv
 FMuxPC.sv
-!i122 3796
-Z32 L0 1 14
+!i122 3802
+Z31 L0 1 14
 R14
 r1
 !s85 0
@@ -701,7 +701,7 @@ R4
 n@mux_@p@c
 vmux_selA
 R7
-R18
+R8
 !i10b 1
 !s100 ;6gjWon?Y=E`g4^0WSNiV3
 R9
@@ -712,7 +712,7 @@ R11
 R12
 8mux_selA.sv
 Fmux_selA.sv
-!i122 3796
+!i122 3802
 L0 1 12
 R14
 r1
@@ -726,7 +726,7 @@ R4
 nmux_sel@a
 vmux_selB
 R7
-R18
+R8
 !i10b 1
 !s100 c1hfbe:9@bZj[_FN^L4gH1
 R9
@@ -737,8 +737,8 @@ R11
 R12
 8mux_selB.sv
 Fmux_selB.sv
-!i122 3796
-Z33 L0 1 15
+!i122 3802
+Z32 L0 1 15
 R14
 r1
 !s85 0
@@ -751,7 +751,7 @@ R4
 nmux_sel@b
 vMuxResult
 R7
-R18
+R8
 !i10b 1
 !s100 TIhOIB4STKR=4=VI<oD901
 R9
@@ -762,8 +762,8 @@ R11
 R12
 8MuxResult.sv
 FMuxResult.sv
-!i122 3796
-R32
+!i122 3802
+R31
 R14
 r1
 !s85 0
@@ -776,7 +776,7 @@ R4
 n@mux@result
 vPCPlus4
 R7
-R18
+R8
 !i10b 1
 !s100 dh[jHS`Z[D5bENBOQHBSY2
 R9
@@ -787,7 +787,7 @@ R11
 R12
 8PCPlus4.sv
 FPCPlus4.sv
-!i122 3796
+!i122 3802
 R13
 R14
 r1
@@ -801,7 +801,7 @@ R4
 n@p@c@plus4
 vprogram_counter
 R7
-R18
+R8
 !i10b 1
 !s100 z7l1TRSGT`RC16m>9A:AI0
 R9
@@ -812,8 +812,8 @@ R11
 w1683922950
 8program_Counter.sv
 Fprogram_Counter.sv
-!i122 3796
-R33
+!i122 3802
+R32
 R14
 r1
 !s85 0
@@ -825,7 +825,7 @@ R16
 R4
 vRegister_file
 R7
-R18
+R8
 !i10b 1
 !s100 ChHWz@P8>TzdUVEzmaB9m1
 R9
@@ -836,8 +836,8 @@ R11
 R12
 8Register_file.sv
 FRegister_file.sv
-!i122 3796
-R19
+!i122 3802
+R18
 R14
 r1
 !s85 0
@@ -850,7 +850,7 @@ R4
 n@register_file
 vsecond_register
 R7
-R18
+R8
 !i10b 1
 !s100 4?[UDX`0;aXM<hA=M>97h3
 R9
@@ -861,7 +861,7 @@ R11
 R12
 8Second_Register.sv
 FSecond_Register.sv
-!i122 3796
+!i122 3802
 L0 1 84
 R14
 r1
@@ -874,7 +874,7 @@ R16
 R4
 vthird_register
 R7
-R18
+R8
 !i10b 1
 !s100 H9]`@c<5R>aRbfG`5TdK93
 R9
@@ -885,7 +885,7 @@ R11
 R12
 8Third_Register.sv
 FThird_Register.sv
-!i122 3796
+!i122 3802
 L0 1 51
 R14
 r1
@@ -898,19 +898,19 @@ R16
 R4
 vTopLevel
 R7
-R18
+R8
 !i10b 1
-!s100 UW3LMFAzQj3g77KzGIcj21
+!s100 NzKZUh;3N@^kHa]YAbhEg1
 R9
-IQ6OliDO6WUk0R5a1VQ9^]1
+I=Gn?9zAok9S2hPobWb3AS0
 R10
 S1
 R11
-w1683927873
+w1683928455
 8TopLevel.sv
 FTopLevel.sv
-!i122 3796
-L0 1 342
+!i122 3802
+L0 1 344
 R14
 r1
 !s85 0
@@ -923,7 +923,7 @@ R4
 n@top@level
 vTopLevel_tb
 R7
-R18
+R8
 !i10b 1
 !s100 Yl9F58199RU4Idh5_^`lF1
 R9
@@ -934,7 +934,7 @@ R11
 w1683927307
 8TopLevel_tb.sv
 FTopLevel_tb.sv
-!i122 3796
+!i122 3802
 L0 1 73
 R14
 r1

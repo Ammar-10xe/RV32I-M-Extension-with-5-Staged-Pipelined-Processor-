@@ -1,5 +1,5 @@
 module multiplier_iterative (
-    input logic clk, rst, startE,
+    input logic clk, rst, startM,
     input logic [1:0] mul_opcode,
     input logic [31:0] operand1, operand2,
     output logic [31:0] result_multiply,
@@ -37,7 +37,7 @@ always_ff @(posedge clk or posedge rst) begin
         result_multiply <= 32'b0;
     end 
     else begin
-        if (startE) begin
+        if (startM) begin
             mul_use <= 1'b1;
             current_mul_opcode <= mul_opcode;
             case (mul_opcode)
@@ -93,7 +93,7 @@ always_ff @(posedge clk or posedge rst) begin
                 endcase
             end
         end else begin
-            mul_use <= startE;
+            mul_use <= startM;
             done <= 1'b0;
         end
     end

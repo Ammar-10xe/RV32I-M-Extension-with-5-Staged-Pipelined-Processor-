@@ -22,6 +22,8 @@ multiplier_controller Multiplier_Controller (
     .clk(clk),
     .rst(rst),
     .startE(startE),
+    .startD(startD),
+    .startM(startM),
     .tmp(tmp),
     .mul_use(mul_use),
     .alu_opE(alu_opE),
@@ -43,7 +45,7 @@ multiplier_controller Multiplier_Controller (
 multiplier_iterative multiplier (
     .clk(clk),
     .rst(rst),
-    .startE(startE),
+    .startM(startM),
     .mul_opcode(mul_opcode),
     .operand1(operand1),
     .operand2(operand2),
