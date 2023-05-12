@@ -208,8 +208,6 @@ ALU Alu(
 third_register ThirdReg(
     .clk(clk),
     .rst(rst),
-    // .flagM(flagM),
-    // .result_m(result_m),
     .reg_wrE(reg_wrE),
     .br_taken(br_taken),
     .wb_selE(wb_selE),
@@ -236,10 +234,6 @@ third_register ThirdReg(
     .lwstallM(lwstallM));
 
 LoadStore_Unit loadstore(
-    .lwstallM(lwstallM),
-    .valid_DM(valid_DM),
-    .lwstallM_DM(lwstallM_DM),
-    .valid(valid),
     .funct3M(funct3M),
     .instr_opcodeM(instr_opcodeM),
     .data_rd(data_rd),
@@ -252,10 +246,7 @@ LoadStore_Unit loadstore(
     .data_wr(data_wr),
     .rdata(rdata));
 
-
 Data_Memory Dmem(
-    .valid_DM(valid_DM),
-    .lwstallM_DM(lwstallM_DM),
     .clk(clk),
     .rst(rst),
     .cs(cs),
