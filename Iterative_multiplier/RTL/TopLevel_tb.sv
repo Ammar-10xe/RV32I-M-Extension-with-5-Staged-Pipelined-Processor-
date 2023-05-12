@@ -23,8 +23,6 @@ begin
         end
 end
 
-
-
 always_ff @(posedge clk)
 begin
     

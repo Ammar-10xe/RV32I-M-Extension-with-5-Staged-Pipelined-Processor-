@@ -73,9 +73,6 @@ always_comb begin
   end
 end
 
-
-
-
 //Hazard detecting for flushing 
 always_comb begin begin
   if ( br_taken ) begin

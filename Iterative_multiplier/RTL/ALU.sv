@@ -60,10 +60,7 @@ else if (~mul_use) begin
     AND: ALUResult = SrcAE & SrcBE;                              //Logical and
 
     LUI: ALUResult = SrcBE;                                      //Load Upper Immediate
- 
-   
-    // default:  ALUResult = SrcAE + SrcBE;
-        // default:  ALUResult = 32'b0;
+
     endcase
 end
   end

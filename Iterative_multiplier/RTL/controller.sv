@@ -1,5 +1,5 @@
 module controller (
-    input logic mul_use,startE,//to hold the value of start 
+    input logic         mul_use,startE,//to hold the value of start 
     input  logic [31:0] InstD,
     output logic        reg_wr,sel_A,sel_B,start,
     output logic [1:0]  wb_sel,
