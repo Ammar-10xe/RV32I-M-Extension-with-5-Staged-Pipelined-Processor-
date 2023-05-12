@@ -2,7 +2,7 @@ module multiplier_controller (
     input               clk,rst,startE,
     input  logic [4:0]  alu_opE,
     input  logic [31:0] SrcAE, SrcBE,
-    output logic        flagM,
+    output logic        flagM,tmp,
     output logic [31:0] result_m,
     //For M extension     
     output logic [31:0] operand1, operand2,
@@ -12,6 +12,7 @@ module multiplier_controller (
     input logic         done,
     input logic         mul_use
 );
+
 
 logic normal_mode = 1'b0;
 logic [31:0] muliply_result_input = 32'b0;
@@ -27,11 +28,25 @@ parameter [4:0] REMU    = 5'b10010;
 
 
 
+always_comb begin
+    // tmp = 1'b0;
+    if(startE) begin
+        tmp = 1'b1;
+    end
+    else if ( done ) begin
+        tmp = 1'b0;
+    end
+    // else
+    // tmp = 1'b1;
+
+end
+
+
 // instances of multiplier and divider modules
 multiplier_iterative multiply( 
     .clk(clk),
     .rst(rst),
-    .startE(startE),
+    .startE(tmp),
     .mul_opcode(mul_opcode),
     .operand1(operand1),
     .operand2(operand2),
@@ -45,11 +60,9 @@ divider_32bit divide(
     .operand2(operand2),
     .result_divide(result_divide));
 
+always_comb begin
 
-always @(posedge clk) begin
-    if (rst) begin
-        result_m <= 32'h0;
-    end else if (done & ~mul_use) begin
+      if (done & ~mul_use) begin
         result_m <= result_multiply;
         flagM = 1'b1;
     end
@@ -59,6 +72,21 @@ always @(posedge clk) begin
     end
 
 end
+
+// always_ff@(posedge clk) begin
+//     if (rst) begin
+//         result_m <= 32'h0;
+//     end else if (done & ~mul_use) begin
+//         result_m <= result_multiply;
+//         flagM = 1'b1;
+//     end
+//     else begin
+//       result_m = 32'b0;
+//       flagM    = 1'b0;
+//     end
+
+// end
+
 
   always_comb begin
     operand1 = 32'h0; // Reset the operand1

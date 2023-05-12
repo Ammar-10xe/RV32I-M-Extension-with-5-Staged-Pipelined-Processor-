@@ -23,28 +23,65 @@ begin
         end
 end
 
-// always_ff @(posedge clk)
-// begin
-    
-// if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultW == 32'h00000f00))
-// begin
-//     $fwrite(f,"%h\n", TOPLevel.data_wr);
-// end
 
-// if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultW == 32'hcafebeef))
-// begin
-//     $finish;
-// end
-// end
 
 always_ff @(posedge clk)
 begin
-    // if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultW == 32'h00000f00))
-        // if((TOPLevel.ALUResultW == 32'h00000f00))
-    $fwrite(f,"mul_use=%h, done=%h, start=%b, startE=%h, operand1=%h, operand2=%h, mul_opcode=%b, mulresult=%h, result_m=%h,flagM=%b, alu_result=%h, alu_op=5b'%b, alu_opE=%5b'b, data_wr=%h\n",
-    TOPLevel.mul_use,TOPLevel.done,TOPLevel.start,TOPLevel.startE,TOPLevel.operand1,TOPLevel.operand2,TOPLevel.mul_opcode,TOPLevel.result_multiply,TOPLevel.result_m,TOPLevel.flagM,TOPLevel.ALUResult,TOPLevel.alu_op,TOPLevel.alu_opE,TOPLevel.data_wr);
-
+    
+if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultM == 32'h00000f00))
+begin
+    $fwrite(f,"%h\n", TOPLevel.data_wr);
 end
+
+if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultM == 32'hcafebeef))
+begin
+    $finish;
+end
+end
+
+// always_ff @(posedge clk)
+// begin
+//     // if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultW == 32'h00000f00))
+//         // if((TOPLevel.ALUResultW == 32'h00000f00))
+//     $fwrite(f,"mul_use=%h, done=%h, start=%b, startE=%h,tmp=%b, operand1=%h, operand2=%h, mul_opcode=%b, mulresult=%h, result_m=%h,flagM=%b, alu_result=%h,alu_resultM=%h,alu_resultW=%h, alu_op=5b'%b, alu_opE=%5b'b,wr=%b, rdata2E=%h, rdata2M=%h, data_wr=%h, InstrF=%h,InstrD=%h,InstrE=%h, InstrM=%h, InstrW=%h, PC=%d\n",
+//     TOPLevel.mul_use,TOPLevel.done,TOPLevel.start,TOPLevel.startE,TOPLevel.tmp,TOPLevel.operand1,TOPLevel.operand2,TOPLevel.mul_opcode,TOPLevel.result_multiply,TOPLevel.result_m,TOPLevel.flagM,TOPLevel.ALUResult,TOPLevel.ALUResultM,TOPLevel.ALUResultW,TOPLevel.alu_op,TOPLevel.alu_opE,TOPLevel.wr,TOPLevel.rdata2E,TOPLevel.rdata2M,TOPLevel.data_wr,TOPLevel.Inst,TOPLevel.InstD,TOPLevel.InstE, TOPLevel.InstM,TOPLevel.InstW,TOPLevel.Addr);
+
+// end
+
+
+
+// // for debuuging comapring//
+
+// always_ff @(posedge clk)
+// begin
+//     if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultM == 32'h00000f00))
+//         // if((TOPLevel.ALUResultW == 32'h00000f00))
+//     $fwrite(f,"valid_H=%b, funct7M=7b'%b, Tmp=%b, Done=%b, Start=%b, StartE=%b, StallM=%b ,frwrdAE=%b, SrcAE=%h, SrcBE=%h, alu_result=%h,alu_resultM=%h,alu_resultW=%h, alu_op=5b'%b, alu_opE=%5b'b,wr=%b, rdata2E=%h, rdata2M=%h, data_wr=%h, InstrF=%h,InstrD=%h,InstrE=%h, InstrM=%h, InstrW=%h, PC=%d\n",
+//     TOPLevel.valid_done,TOPLevel.funct7M,TOPLevel.tmp,TOPLevel.done,TOPLevel.start,TOPLevel.startE,TOPLevel.StallM,TOPLevel.forwardAE,TOPLevel.SrcAE,TOPLevel.SrcBE,TOPLevel.ALUResult,TOPLevel.ALUResultM,TOPLevel.ALUResultW,TOPLevel.alu_op,TOPLevel.alu_opE,TOPLevel.wr,TOPLevel.rdata2E,TOPLevel.rdata2M,TOPLevel.data_wr,TOPLevel.Inst,TOPLevel.InstD,TOPLevel.InstE, TOPLevel.InstM,TOPLevel.InstW,TOPLevel.Addr);
+
+// end
+
+
+
+
+
+
+// always_ff @(posedge clk)
+// begin
+//         if(TOPLevel.InstE == 32'h005e2023 | TOPLevel.InstE == 32'h006e2223 | TOPLevel.InstE == 32'h007e2023 | TOPLevel.InstE == 32'h008e2623)
+//     $fwrite(f,"Aluresult=%d, data_wr=%h\n",TOPLevel.ALUResult,TOPLevel.data_wr);
+    
+//     end
+
+// always_ff @(posedge clk)
+// begin
+//         if((TOPLevel.ALUResultW == 32'h00000f00))
+//     $fwrite(f,"Aluresult=%d, data_wr=%h\n",TOPLevel.ALUResult,TOPLevel.data_wr);
+    
+//     end
+
+
+
 
 initial 
 begin
@@ -54,7 +91,7 @@ begin
 end
 
 // parameter count = 500000;
-parameter count = 5000;
+parameter count = 500;
 reg [31:0] loop;
 
 initial begin

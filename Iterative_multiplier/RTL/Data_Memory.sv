@@ -1,14 +1,27 @@
 module Data_Memory( 
     input  logic clk,rst,
-    input  logic cs,wr,
+    input  logic cs,wr,lwstallM_DM,
     input  logic [3:0] mask,
     input  logic [31:0] data_wr,
     input  logic [19:0] addr,
+    output logic valid_DM,
     output logic [31:0] data_rd
 );
     // logic [19:0] addr = addr_DM[19:0];
     logic [31:0] data_mem [2**20-1:0]; 
 
+
+// valid bit for stalling 
+always_ff @( posedge clk  ) begin 
+// always_comb begin
+    valid_DM = 1'b0;
+    if (lwstallM_DM) begin
+        valid_DM <= 1'b1;
+    end
+    else begin 
+        valid_DM <= 1'b0;
+    end
+end
 //Asynchronous Data Memory Read for Load Operation
 assign data_rd =((~cs) & (wr)) ? data_mem[addr] : '0;
 

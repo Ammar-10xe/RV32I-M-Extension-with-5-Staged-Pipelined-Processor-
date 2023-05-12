@@ -1,5 +1,5 @@
 module second_register (
-    input  logic         clk,rst,reg_wr,sel_A,sel_B,FlushE,start,
+    input  logic         clk,rst,reg_wr,sel_A,sel_B,FlushE,StallM,start,FlushES,
     input  logic [1:0]  wb_sel,
     input  logic [2:0]  funct3,
     input  logic [4:0]  alu_op,raddr1D,raddr2D,waddrD,
@@ -14,9 +14,9 @@ module second_register (
 
 );
 
-    logic hold_start;
 
     always_ff @( posedge clk ) begin 
+        startE <=1'b0;
         if ( rst ) begin
             AddrE         <= 32'b0;
             rdata1E       <= 32'b0;
@@ -35,7 +35,7 @@ module second_register (
             waddrE        <= 5'b0;
             startE        <= 1'b0;
         end
-        else if ( FlushE ) begin
+        else if ( FlushE | FlushES ) begin
             AddrE         <= 32'b0;
             rdata1E       <= 32'b0;
             rdata2E       <= 32'b0;
@@ -54,7 +54,9 @@ module second_register (
             startE        <=1'b0;
             
         end
-        else begin
+
+        else if (~StallM) begin    
+            // else begin
             AddrE         <= AddrD;
             rdata1E       <= rdata1; 
             rdata2E       <= rdata2;
@@ -70,8 +72,13 @@ module second_register (
             raddr1E       <= raddr1D;
             raddr2E       <= raddr2D;
             waddrE        <= waddrD;
-            startE        <=start;
+            startE        <= start;
         end
+
     end
+
+
+
+
 
 endmodule

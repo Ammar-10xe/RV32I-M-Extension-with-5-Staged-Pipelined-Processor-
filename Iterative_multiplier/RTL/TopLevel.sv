@@ -5,7 +5,7 @@ module TopLevel (input logic clk,rst);
     logic [2:0]  ImmSrcD,funct3,funct3E,funct3M;
     logic [3:0]  mask;
     logic [4:0]  raddr1,raddr1D,raddr1E,raddr2,raddr2D,raddr2E,waddr,waddrD,waddrE,waddrM,waddrW,alu_op,alu_opE;
-    logic [6:0]  instr_opcode,instr_opcodeE,instr_opcodeM;
+    logic [6:0]  instr_opcode,instr_opcodeE,instr_opcodeM,funct7M;
     logic [31:0] Addr,AddrD,AddrE,AddrM,AddrW,AddrWB,PC,Inst,InstD,InstE,InstM,InstW,PCF,wdata,rdata1,rdata1E,rdata2,rdata2E,rdata2M,ImmExtD,ImmExtE,SrcA,SrcAE,SrcB,SrcBE,ALUResult,ALUResultM,ALUResultW,rdata,rdataW,data_rd,addr,addr_DM,data_wr,toLSU,mem_out;
     logic [31:0] mem_outW;
     
@@ -15,13 +15,14 @@ module TopLevel (input logic clk,rst);
 
     logic [31:0] result_multiply,ALU_operand1, ALU_operand2;
     logic [1:0]  mul_opcode,div_opcode;
-    logic done,flagM,start,startE,mul_use;
+    logic done,flagM,start,startE,mul_use,tmp,StallE,lwstall,lwstallM,lwstallM_DM,valid_DM,valid,valid_done,StallM,FlushES;
 
 
 multiplier_controller Multiplier_Controller (
     .clk(clk),
     .rst(rst),
     .startE(startE),
+    .tmp(tmp),
     .mul_use(mul_use),
     .alu_opE(alu_opE),
     .SrcAE(SrcAE),
@@ -37,17 +38,17 @@ multiplier_controller Multiplier_Controller (
     .done(done));
 
 
-// multiplier_iterative multiplier (
-//     .clk(clk),
-//     .rst(rst),
-//     .startE(startE),
-//     .mul_opcode(mul_opcode),
-//     .operand1(operand1),
-//     .operand2(operand2),
-//     .result_multiply(result_multiply),
-//     .done(done),
-//     .mul_use(mul_use)
-//     );
+multiplier_iterative multiplier (
+    .clk(clk),
+    .rst(rst),
+    .startE(startE),
+    .mul_opcode(mul_opcode),
+    .operand1(operand1),
+    .operand2(operand2),
+    .result_multiply(result_multiply),
+    .done(done),
+    .mul_use(mul_use)
+    );
 
 divider_32bit divider_inst (
     .div_opcode(div_opcode),
@@ -72,10 +73,11 @@ program_counter ProgCouner (
     .clk(clk),
     .rst(rst),
     .StallF(StallF),
-    .mul_use(mul_use),
-    .startE(startE),
+    .StallM(StallM),
     .PC(PC),
     .Addr(Addr));
+
+
 
 Instruction_Memory InstMem(
     .Addr(Addr),
@@ -86,12 +88,14 @@ Instruction_Memory InstMem(
 first_register FirstReg(
     .clk(clk),
     .rst(rst),
+    .StallM(StallM),
     .StallD(StallD),
     .FlushD(FlushD),
     .Addr(Addr),
     .Inst(Inst),
     .AddrD(AddrD),
     .InstD(InstD)); 
+
 
 Instruction_Fetch Fetch(
     .InstD(InstD),
@@ -120,10 +124,12 @@ second_register SecondReg(
     .rst(rst),
     .start(start),
     .startE(startE),
+    .StallM(StallM),  //changed to stallE 
     .reg_wr(reg_wr),
     .sel_A(sel_A),
     .sel_B(sel_B),
     .FlushE(FlushE),
+    .FlushES(FlushES),
     .wb_sel(wb_sel),
     .funct3(funct3),
     .alu_op(alu_op),
@@ -151,6 +157,8 @@ second_register SecondReg(
     .rdata2E(rdata2E),
     .ImmExtE(ImmExtE),
     .InstE(InstE));
+
+
 
 forward_muxA Forwd_MuxA(
     .forwardAE(forwardAE),
@@ -190,12 +198,12 @@ BranchCond Branchcond(
 ALU Alu(
     .alu_opE(alu_opE),
     .flagM(flagM),
+    .startE(startE),
     .mul_use(mul_use),
     .SrcAE(SrcAE),
     .SrcBE(SrcBE),
     .result_m(result_m),
     .ALUResult(ALUResult));
-
 
 third_register ThirdReg(
     .clk(clk),
@@ -222,9 +230,16 @@ third_register ThirdReg(
     .AddrM(AddrM),
     .ALUResultM(ALUResultM),
     .rdata2M(rdata2M),
-    .InstM(InstM));
+    .InstM(InstM),
+    .funct7M(funct7M),
+    .lwstall(lwstall),
+    .lwstallM(lwstallM));
 
 LoadStore_Unit loadstore(
+    .lwstallM(lwstallM),
+    .valid_DM(valid_DM),
+    .lwstallM_DM(lwstallM_DM),
+    .valid(valid),
     .funct3M(funct3M),
     .instr_opcodeM(instr_opcodeM),
     .data_rd(data_rd),
@@ -239,6 +254,8 @@ LoadStore_Unit loadstore(
 
 
 Data_Memory Dmem(
+    .valid_DM(valid_DM),
+    .lwstallM_DM(lwstallM_DM),
     .clk(clk),
     .rst(rst),
     .cs(cs),
@@ -252,6 +269,8 @@ Data_Memory Dmem(
 fourt_register FourtReg(
     .clk(clk),
     .rst(rst),
+    .valid(valid),
+    .valid_done(valid_done),
     .reg_wrM(reg_wrM),
     .wb_selM(wb_selM),
     .waddrM(waddrM),
@@ -294,12 +313,13 @@ controller Controller(
     .instr_opcode(instr_opcode));
 
 Hazard_Unit HazardUnit(
+    .clk(clk),
+    .rst(rst),
     .reg_wrM(reg_wrM),
     .reg_wrW(reg_wrW),
     .br_taken(br_taken),
-    .mul_use(mul_use),
-    .startE(startE),
-    .wb_sel(wb_selE),
+    .startE(tmp),
+    .wb_selE(wb_selE),
     .raddr1D(raddr1D),
     .raddr2D(raddr2D),
     .raddr1E(raddr1E),
@@ -309,11 +329,14 @@ Hazard_Unit HazardUnit(
     .waddrW(waddrW),
     .StallF(StallF),
     .StallD(StallD),
+    .StallM(StallM),
     .FlushD(FlushD),
     .FlushE(FlushE),
+    .FlushES(FlushES),
     .forwardAE(forwardAE),
     .forwardBE(forwardBE));
-    
+
+
 Memory_mux Memory_mux(
     .toLSU(toLSU),
     .rdata(rdata),

@@ -1,5 +1,5 @@
 module ALU (
-    input logic         flagM,mul_use,
+    input logic         flagM,mul_use,startE,
     input  logic [4:0]  alu_opE,
     input  logic [31:0] SrcAE, SrcBE,result_m,
     output logic [31:0] ALUResult
@@ -32,12 +32,11 @@ parameter [4:0] REMU    = 5'b10010;
 
 
   always_comb begin
-  
     if ( flagM ) begin
         ALUResult = result_m;
-    end
+     end
 
-if (!mul_use) begin
+else if (~mul_use) begin
   case(alu_opE)
     
     ADD: ALUResult = SrcAE + SrcBE ;                             //Addition

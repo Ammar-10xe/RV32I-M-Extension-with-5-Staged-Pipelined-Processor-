@@ -1,12 +1,9 @@
 # vsim -c -do "run -all" TopLevel_tb "+sig=result.txt" "+mem_init=mcheck.hex" 
-# Start time: 09:04:03 on May 06,2023
+# Start time: 13:10:55 on May 12,2023
 # Loading sv_std.std
 # Loading work.TopLevel_tb
 # Loading work.TopLevel
-# ** Error: (vsim-3033) Instantiation of 'multiplier_controller' failed. The design unit was not found.
-#    Time: 0 ps  Iteration: 0  Instance: /TopLevel_tb/TOPLevel File: TopLevel.sv Line: 21
-#         Searched libraries:
-#             /home/xe-lpt-71/Documents/M_extension_Work/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work
+# Loading work.multiplier_controller
 # Loading work.multiplier_iterative
 # Loading work.divider_32bit
 # Loading work.Mux_PC
@@ -33,6 +30,38 @@
 # Loading work.controller
 # Loading work.Hazard_Unit
 # Loading work.Memory_mux
-# Error loading design
-# End time: 09:04:03 on May 06,2023, Elapsed time: 0:00:00
-# Errors: 1, Warnings: 0
+# ** Warning: (vsim-3015) [PCDPC] - Port size (20) does not match connection size (32) for port 'addr'. The port definition is at: Data_Memory.sv(6).
+#    Time: 0 ps  Iteration: 0  Instance: /TopLevel_tb/TOPLevel/Dmem File: TopLevel.sv Line: 256
+# run -all
+# 00000018 / 0000002c
+# 00000018 / 0000002c
+# 00000044 / 0000003c
+# 00000044 / 0000003c
+# ffffffce / 0000003c
+# ffffffce / 0000003c
+# 00000044 / fffff448
+# 00000044 / fffff448
+# ffffffce / 00000044
+# ffffffce / 00000044
+# ffffffce / 0000003c
+# ffffffce / 0000003c
+# 00000044 / 00000004
+# 00000044 / 00000004
+# 00000044 / ffffffff
+# 00000044 / ffffffff
+# ffffffce / 00000048
+# ffffffce / 00000048
+# ffffffce / ffffff98
+# ffffffce / ffffff98
+# 00000044 / 00000008
+# 00000044 / 00000008
+# 00000044 / 00000031
+# 00000044 / 00000031
+# ffffff98 / 0000004c
+# ffffff98 / 0000004c
+# ffffff98 / 00000022
+# ffffff98 / 00000022
+# ** Note: $finish    : TopLevel_tb.sv(38)
+#    Time: 405 ps  Iteration: 1  Instance: /TopLevel_tb
+# End time: 13:10:56 on May 12,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 1
