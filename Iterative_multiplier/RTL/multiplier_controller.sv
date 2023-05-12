@@ -73,21 +73,6 @@ always_comb begin
 
 end
 
-// always_ff@(posedge clk) begin
-//     if (rst) begin
-//         result_m <= 32'h0;
-//     end else if (done & ~mul_use) begin
-//         result_m <= result_multiply;
-//         flagM = 1'b1;
-//     end
-//     else begin
-//       result_m = 32'b0;
-//       flagM    = 1'b0;
-//     end
-
-// end
-
-
   always_comb begin
     operand1 = 32'h0; // Reset the operand1
     operand2 = 32'h0; // Reset the operand2

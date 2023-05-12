@@ -15,7 +15,7 @@ module TopLevel (input logic clk,rst);
 
     logic [31:0] result_multiply,ALU_operand1, ALU_operand2;
     logic [1:0]  mul_opcode,div_opcode;
-    logic done,flagM,start,startE,mul_use,tmp,StallE,lwstall,lwstallM,lwstallM_DM,valid_DM,valid,valid_done,StallM,FlushES;
+    logic done,flagM,start,startE,mul_use,tmp,StallE,lwstall,lwstallM,StallM,FlushES;
 
 
 multiplier_controller Multiplier_Controller (
@@ -260,8 +260,6 @@ Data_Memory Dmem(
 fourt_register FourtReg(
     .clk(clk),
     .rst(rst),
-    .valid(valid),
-    .valid_done(valid_done),
     .reg_wrM(reg_wrM),
     .wb_selM(wb_selM),
     .waddrM(waddrM),

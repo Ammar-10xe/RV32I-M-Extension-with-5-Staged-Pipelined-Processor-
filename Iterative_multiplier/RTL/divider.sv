@@ -13,10 +13,6 @@ always_comb begin
             // else if ( operand1 == 32'h80000000 && operand2 == 32'hffffffff)
                    else if ( operand1 == 32'h80000000)
                 result_divide = operand1;
-            else begin
-                $display("%h / %h",operand1,operand2);
-                result_divide = $signed(operand1) / $signed(operand2);
-            end
         2'b01: // DIVU
             if (operand2 == 0) begin
                 result_divide = 32'hFFFFFFFF;

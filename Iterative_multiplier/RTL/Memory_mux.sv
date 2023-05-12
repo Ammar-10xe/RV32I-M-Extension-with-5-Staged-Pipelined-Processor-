@@ -8,8 +8,7 @@ always_comb begin
 
 
     if ((addr [8] | addr[9] | addr [10] | addr[11] | addr[12] | addr[13] | addr[14] | addr[15]) & toLSU != 32'hdeadbeef & toLSU != 32'hbabecafe)
-// if ((addr [8] & addr[9] & addr [10] & addr[11]) & toLSU != 32'hdeadbeef & toLSU != 32'hbabecafe)
-    // if (addr[19])
+    
          mem_out =  toLSU; // Instruction Memory
     else
          mem_out =  rdata; // Data Memory   

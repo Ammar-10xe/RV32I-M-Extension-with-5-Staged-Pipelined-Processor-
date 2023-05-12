@@ -1,4 +1,0 @@
-Aluresult=        68, data_wr=00000000
-Aluresult=        72, data_wr=00000000
-Aluresult=        68, data_wr=00000000
-Aluresult=        80, data_wr=00000000
