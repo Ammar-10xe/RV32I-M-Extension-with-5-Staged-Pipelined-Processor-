@@ -1,5 +1,5 @@
 # vsim -c -do "run -all" TopLevel_tb "+sig=result.txt" "+mem_init=mcheck.hex" 
-# Start time: 13:10:55 on May 12,2023
+# Start time: 13:34:21 on May 12,2023
 # Loading sv_std.std
 # Loading work.TopLevel_tb
 # Loading work.TopLevel
@@ -63,5 +63,5 @@
 # ffffff98 / 00000022
 # ** Note: $finish    : TopLevel_tb.sv(38)
 #    Time: 405 ps  Iteration: 1  Instance: /TopLevel_tb
-# End time: 13:10:56 on May 12,2023, Elapsed time: 0:00:01
+# End time: 13:34:22 on May 12,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 1
