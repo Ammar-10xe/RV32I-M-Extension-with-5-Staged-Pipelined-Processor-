@@ -23,21 +23,21 @@ module multiplier_iterative (
     logic processing;
     logic [1:0] current_mul_opcode;
 
-    always_ff @(posedge clk or posedge rst) begin
-        if (rst) begin
-            multiplicand_reg <= 32'b0;
-            multiplier_reg <= 32'b0;
-            signed_product_reg <= 64'b0;
-            product_reg <= 64'b0;
-            counter <= 6'b0;
-            done <= 1'b0;
-            processing <= 1'b0;
-            mul_use <= 1'b0;
-            current_mul_opcode <= 2'b0;
-            result_multiply <= 32'b0;
-        end 
-            else begin
-                if (startE) begin
+always_ff @(posedge clk or posedge rst) begin
+    if (rst) begin
+        multiplicand_reg <= 32'b0;
+        multiplier_reg <= 32'b0;
+        signed_product_reg <= 64'b0;
+        product_reg <= 64'b0;
+        counter <= 6'b0;
+        done <= 1'b0;
+        processing <= 1'b0;
+        mul_use <= 1'b0;
+        current_mul_opcode <= 2'b0;
+        result_multiply <= 32'b0;
+    end 
+    else begin
+        if (startE) begin
             mul_use <= 1'b1;
             current_mul_opcode <= mul_opcode;
             case (mul_opcode)
@@ -62,15 +62,14 @@ module multiplier_iterative (
                             product_reg <= product_reg + ({32'b0, multiplicand_reg} << counter);
                         end
                         MULH: begin
-                            multiplicand_signed = $signed({operand1[31], multiplicand_reg});
-                            signed_product_reg <= signed_product_reg + ($signed({multiplicand_signed, 32'b0}) << counter);
+                            multiplicand_signed = $signed({1'b0, operand1[31:0]});
+                            multiplier_signed = $signed({1'b0, operand2[31:0]});
+                            signed_product_reg <= signed_product_reg + ((multiplicand_signed * multiplier_signed) << counter);
                         end
                         MULHSU: begin
-                            if (operand1[31] == 1'b0) begin
-                                signed_product_reg <= signed_product_reg + ($signed({32'b0, multiplicand_reg}) << counter);
-                            end else begin
-                                signed_product_reg <= signed_product_reg - ($signed({32'b0, multiplicand_reg}) << counter);
-                            end
+                            multiplicand_signed = $signed({1'b0, operand1[31:0]});
+                            multiplier_signed = $signed({1'b0, operand2});
+                            signed_product_reg <= signed_product_reg + ((multiplicand_signed * multiplier_signed) << counter);
                         end
                     endcase
                 end
@@ -78,32 +77,27 @@ module multiplier_iterative (
                 counter <= counter + 1'b1;
                 result_multiply <= 32'b0;
             end else begin
-                 processing <= 1'b0;
-                    done <= 1'b1;
-                    mul_use <= 1'b0;
-                    case (current_mul_opcode)
-                        MUL: begin
-                            temp_result = product_reg;
-                        end
-
-                        MULH: begin
-                            temp_result = signed_product_reg[63:32];
-                        end
-                        MULHSU: begin
-                            temp_result = signed_product_reg[63:32];
-                        end
-                         MULHU: begin
-                            temp_result = product_reg >> 32;
-                        end
-                    endcase
-                    result_multiply <= temp_result[31:0];
-                end
-            end else begin
-                mul_use <= startE;
-                done <= 1'b0;
+                processing <= 1'b0;
+                done <= 1'b1;
+                mul_use <= 1'b0;
+                case (current_mul_opcode)
+                    MUL: begin
+                        result_multiply <= product_reg[31:0];
+                    end
+                    MULH, MULHSU: begin
+                        result_multiply <= signed_product_reg[63:32];
+                    end
+                    MULHU: begin
+                        result_multiply <= product_reg[63:32];
+                    end
+                endcase
             end
+        end else begin
+            mul_use <= startE;
+            done <= 1'b0;
         end
     end
+end
 endmodule
 
 
