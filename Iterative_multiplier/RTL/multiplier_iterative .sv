@@ -81,13 +81,7 @@ always_ff @(posedge clk or posedge rst) begin
                     end
                 end
                 MULH: begin
-                    multiplicand_signed_64 = $signed({{32{multiplicand_signed[31]}}, multiplicand_signed});
-                    multiplier_signed_64 = $signed({{32{multiplier_signed[31]}}, multiplier_signed});
-                      shifted_multiplicand = multiplicand_signed << counter; 
-                    if (multiplier_signed[counter] == 1'b1) begin
-                      
-                        signed_product_reg <= signed_product_reg + shifted_multiplicand;
-                    end
+                    signed_product_reg <= multiplicand_signed * multiplier_signed;
                 end
 
                 MULHSU: begin
