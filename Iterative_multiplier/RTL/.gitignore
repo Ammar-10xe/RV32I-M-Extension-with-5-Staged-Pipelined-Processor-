@@ -43,6 +43,8 @@ venv.bak/
 
 # for ModelSim 
 *.qpg
+*.wlf
+*.vstf
 
 # for RV32I
 
