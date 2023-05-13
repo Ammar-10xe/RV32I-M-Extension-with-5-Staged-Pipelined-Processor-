@@ -41,12 +41,21 @@ always_ff @(posedge clk or posedge rst) begin
             mul_use <= 1'b1;
             current_mul_opcode <= mul_opcode;
             case (mul_opcode)
-                MUL, MULH, MULHSU, MULHU: begin
+                MUL, MULHU: begin
                     multiplicand_reg <= operand1;
                     multiplier_reg <= operand2;
                 end
+                MULH: begin
+                    multiplicand_signed = $signed({1'b0, operand1[31:0]});
+                    multiplier_signed = $signed({1'b0, operand2[31:0]});
+                    signed_product_reg <= multiplicand_signed * multiplier_signed;
+                end
+                MULHSU: begin
+                    multiplicand_signed = $signed({1'b0, operand1[31:0]});
+                    multiplier_signed = $signed({1'b0, operand2});
+                    signed_product_reg <= multiplicand_signed * multiplier_signed;
+                end
             endcase
-            signed_product_reg <= 64'b0;
             product_reg <= 64'b0;
             counter <= 6'b0;
             done <= 1'b0;
@@ -61,16 +70,9 @@ always_ff @(posedge clk or posedge rst) begin
                         MUL,MULHU: begin
                             product_reg <= product_reg + ({32'b0, multiplicand_reg} << counter);
                         end
-                        MULH: begin
-                            multiplicand_signed = $signed({1'b0, operand1[31:0]});
-                            multiplier_signed = $signed({1'b0, operand2[31:0]});
-                            signed_product_reg <= signed_product_reg + ((multiplicand_signed * multiplier_signed) << counter);
-                        end
-                        MULHSU: begin
-                            multiplicand_signed = $signed({1'b0, operand1[31:0]});
-                            multiplier_signed = $signed({1'b0, operand2});
-                            signed_product_reg <= signed_product_reg + ((multiplicand_signed * multiplier_signed) << counter);
-                        end
+                        MULH, MULHSU: 
+                             signed_product_reg <= signed_product_reg >> 1;
+
                     endcase
                 end
                 multiplier_reg <= multiplier_reg >> 1;
