@@ -1,6 +1,6 @@
 module divider_32bit (
     input logic        clk, rst, startD,
-    input logic [1:0] div_opcode,
+    input logic [1:0]  div_opcode,
     input logic [31:0] operand1, operand2,
     output logic       doneD,
     output logic [31:0] result_divide

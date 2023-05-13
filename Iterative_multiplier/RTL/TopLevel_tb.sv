@@ -29,6 +29,7 @@ begin
 if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultM == 32'h00000f00))
 begin
     $fwrite(f,"%h\n", TOPLevel.data_wr);
+
 end
 
 if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultM == 32'hcafebeef))
@@ -39,17 +40,12 @@ end
 
 // always_ff @(posedge clk)
 // begin
+
 //     // if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultM == 32'h00000f00))
 //         // if((TOPLevel.ALUResultM == 32'h00000f00))
-//     $fwrite(f,"InsrtE=%h, startE=%b, div_opcode=%b, result_divide=%h, doneD=%b, operand1=%h, operand2=%h, flagD=%b,result_m=%h\n",TOPLevel.InstE,TOPLevel.startE,TOPLevel.div_opcode,TOPLevel.result_divide,TOPLevel.doneD,TOPLevel.operand1,TOPLevel.operand2,TOPLevel.flagD,TOPLevel.result_m);
+//     $fwrite(f,"InsrtE=%h, startM=%b, done=%b, mul_opcode=%b, result_multiply=%h, operand1=%h,SrcAE=%h, SrcBE=%h, operand2=%h, flagM=%b,result_m=%h\n",TOPLevel.InstE,TOPLevel.startM,TOPLevel.done,TOPLevel.mul_opcode,TOPLevel.result_multiply,TOPLevel.operand1,TOPLevel.SrcAE,TOPLevel.SrcBE,TOPLevel.operand2,TOPLevel.flagM,TOPLevel.result_m);
 
 // end
-
-
-
-
-
-
 
 initial 
 begin

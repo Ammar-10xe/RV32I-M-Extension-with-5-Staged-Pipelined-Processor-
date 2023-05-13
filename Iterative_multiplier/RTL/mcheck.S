@@ -4,28 +4,35 @@ _start:
     nop
     nop
 
-    li x1, -50              # x1 = 5 (signed)
-    li x2, 60             # x2 = -6 (signed)
-    li x3, -104          # x3 = 65536 (unsigned)
-    li x4, 34         # x4 = 65537 (unsigned)
+    li x1, 10000
+    li x2, 134217728
+    li x3, 858993458  
+    li x4, -32769
+    li x5, -2049
+    li x6, -46083
+    li x17, 64
 
     la t3, begin_sig
     
-    # Perform MUL (Signed Multiplication)
-    mul x5, x1, x2        # x5 = x1 * x2 = 5 * (-6) = -30
-    sw x5, 0(t3)
-    # Perform MULH (Signed Multiplication, upper 32 bits)
-    mulh x6, x1, x2       # x6 = high(x1 * x2) = high(5 * (-6)) = 0
-    sw x6, 4(t3)
-    Perform MULHSU (Signed-Unsigned Multiplication, upper 32 bits)
-    mulhsu x7, x1, x3     # x7 = high(x1 * x3) = high(5 * 65536) = 5
+    # test 1
+
+    mulh x15,x1,x2
+    sw x15, 0(t3)
+  
+    # test2
+    mulh x15,x3,x3
+    sw x15, 4(t3)
+
+    # test 3
+
+    mulh x15,x4,x5
     sw x7, 8(t3)
-    # Perform MULHU (Unsigned Multiplication, upper 32 bits)
-    mulhu x8, x3, x4      # x8 = high(x3 * x4) = high(65536 * 65537) = 1
-    sw x8, 12(t3)
-    
-    
-    j exit
+
+    # test 4
+
+    mulh x15, x6, x7
+    sw x15, 12(t3)
+  j exit
 
 begin_sig:
     .fill 4, 4, 0xcafebeef
