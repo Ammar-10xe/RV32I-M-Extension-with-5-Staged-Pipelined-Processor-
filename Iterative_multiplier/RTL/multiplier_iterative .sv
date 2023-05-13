@@ -51,9 +51,9 @@ always_ff @(posedge clk or posedge rst) begin
                     signed_product_reg <= multiplicand_signed * multiplier_signed;
                 end
                 MULHSU: begin
-                    multiplicand_signed = $signed({1'b0, operand1[31:0]});
-                    multiplier_signed = $signed({1'b0, operand2});
-                    signed_product_reg <= multiplicand_signed * multiplier_signed;
+                    multiplicand_signed <= $signed({1'b0, operand1[31:0]});
+                    multiplier_signed <= operand2;
+                    signed_product_reg <= multiplicand_signed * $signed({1'b0, multiplier_signed[31:0]});
                 end
             endcase
             product_reg <= 64'b0;
