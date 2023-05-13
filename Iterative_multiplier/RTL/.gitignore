@@ -1,0 +1,63 @@
+# OS-specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Executables
+*.exe
+
+# Editor-specific files
+*~
+*.swp
+*.swo
+*.bak
+*.backup
+.*.swp
+.*.swo
+.*.bak
+.*.backup
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+
+
+# for ModelSim 
+*.qpg
+
+# for RV32I
+
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/@_opt
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/@_opt1
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/@_opt2
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/_info
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/_lib.qdb
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/_lib1_1284.qdb
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/_lib1_1284.qpg
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/_lib1_1284.qtl
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/_lib1_1338.qdb
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/_lib1_1338.qpg
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/_lib1_1338.qtl
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/_opt1__lock
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/_opt2__lock
+/home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/_vmake
+
