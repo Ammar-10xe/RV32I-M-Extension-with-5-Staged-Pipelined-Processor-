@@ -54,8 +54,8 @@ begin
     rst<=0;
 end
 
-// parameter count = 50000;
-parameter count = 5000;
+parameter count = 50000;
+// parameter count = 5000;
 reg [31:0] loop;
 
 initial begin

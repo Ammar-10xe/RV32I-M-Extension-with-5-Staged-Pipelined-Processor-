@@ -57,6 +57,11 @@ always_ff @(posedge clk or posedge rst) begin
                 //     signed_product_reg  <= multiplicand_signed * $signed({1'b0, multiplier_unsigned});
 
                 // end
+                MULHSU: begin
+                    multiplicand_signed <= $signed({1'b0, operand1[31:0]});
+                    multiplier_unsigned <= operand2;
+                    signed_product_reg  <= 64'b0;
+                end
             endcase
             product_reg <= 64'b0;
             counter <= 6'b0;
@@ -68,20 +73,18 @@ always_ff @(posedge clk or posedge rst) begin
             mul_use <= 1'b1;
         if (counter < 32) begin
             case (current_mul_opcode)
-                MUL,MULHU: begin
+                MUL, MULHU: begin
                     if (multiplier_reg[0] == 1'b1) begin
                         product_reg <= product_reg + ({32'b0, multiplicand_reg} << counter);
                     end
                 end
                 MULHSU: begin
-                    multiplicand_signed <= $signed({1'b0, operand1[31:0]});
-                    multiplier_unsigned <= operand2;
                     if (multiplier_unsigned[counter] == 1'b1) begin
-                        signed_product_reg <= signed_product_reg + $signed({{32{multiplicand_signed[31]}}, multiplicand_signed[31:0]} << counter);
+                        signed_product_reg <= signed_product_reg + ($signed({{32{multiplicand_signed[31]}}, multiplicand_signed[31:0]}) << counter);
                     end
                 end
-
             endcase
+
             multiplier_reg <= multiplier_reg >> 1;
             counter <= counter + 1'b1;
         end
@@ -93,9 +96,12 @@ always_ff @(posedge clk or posedge rst) begin
                     MUL: begin
                         result_multiply <= product_reg[31:0];
                     end
-                    MULH, MULHSU: begin
+                    MULH: begin
                         result_multiply <= signed_product_reg[63:32];
                     end
+                     MULHSU:begin
+                        result_multiply <= $unsigned(signed_product_reg[63:32]);
+                     end
                     MULHU: begin
                         result_multiply <= product_reg[63:32];
                     end
