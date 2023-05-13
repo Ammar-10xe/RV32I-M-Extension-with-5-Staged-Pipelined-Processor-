@@ -47,6 +47,10 @@ venv.bak/
 *.vstf
 *.qtl
 *.qdb
+wlftgN5spd/
+transcript/
+work/
+
 # for RV32I
 
 /home/xe-lpt-71/MextensionRepo/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/Iterative_multiplier/RTL/work/@_opt
