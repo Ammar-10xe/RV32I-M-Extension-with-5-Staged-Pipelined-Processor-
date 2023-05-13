@@ -8,7 +8,8 @@ module multiplier_iterative (
 );
     logic signed [31:0] multiplicand_signed;
     logic signed [31:0] multiplier_signed;
-    
+    logic unsigned [31:0] multiplier_unsigned;
+
     parameter [1:0] MUL     = 2'b00;
     parameter [1:0] MULH    = 2'b01;
     parameter [1:0] MULHSU  = 2'b10;
@@ -23,6 +24,9 @@ module multiplier_iterative (
     logic processing;
     logic [1:0] current_mul_opcode;
 
+    logic signed [63:0] multiplicand_signed_64;
+    logic signed [63:0] multiplier_signed_64;
+    logic signed [63:0] shifted_multiplicand;
 always_ff @(posedge clk or posedge rst) begin
     if (rst) begin
         multiplicand_reg <= 32'b0;
@@ -37,23 +41,28 @@ always_ff @(posedge clk or posedge rst) begin
         result_multiply <= 32'b0;
     end 
     else begin
-        if (startM) begin
+        if (startM && !processing) begin
             mul_use <= 1'b1;
             current_mul_opcode <= mul_opcode;
             case (mul_opcode)
                 MUL, MULHU: begin
                     multiplicand_reg <= operand1;
-                    multiplier_reg <= operand2;
+                    multiplier_reg   <= operand2;
                 end
+                // MULH: begin
+                //     multiplicand_signed <= $signed({1'b0, operand1[31:0]});
+                //     multiplier_signed   <= $signed({1'b0, operand2[31:0]});
+                //     signed_product_reg  <= multiplicand_signed * multiplier_signed;
+                // end
                 MULH: begin
-                    multiplicand_signed = $signed({1'b0, operand1[31:0]});
-                    multiplier_signed = $signed({1'b0, operand2[31:0]});
-                    signed_product_reg <= multiplicand_signed * multiplier_signed;
+                    multiplicand_signed <= $signed({1'b0, operand1[31:0]});
+                    multiplier_signed   <= $signed({1'b0, operand2[31:0]});
+                    signed_product_reg  <= 64'b0;
                 end
                 MULHSU: begin
                     multiplicand_signed <= $signed({1'b0, operand1[31:0]});
-                    multiplier_signed <= operand2;
-                    signed_product_reg <= multiplicand_signed * $signed({1'b0, multiplier_signed[31:0]});
+                    multiplier_unsigned <= operand2;
+                    signed_product_reg  <= 64'b0;
                 end
             endcase
             product_reg <= 64'b0;
@@ -64,21 +73,28 @@ always_ff @(posedge clk or posedge rst) begin
         end
         if (processing) begin
             mul_use <= 1'b1;
-            if (counter < 32) begin
-                if (multiplier_reg[0] == 1'b1) begin
-                    case (current_mul_opcode)
-                        MUL,MULHU: begin
-                            product_reg <= product_reg + ({32'b0, multiplicand_reg} << counter);
-                        end
-                        MULH, MULHSU: 
-                             signed_product_reg <= signed_product_reg >> 1;
-
-                    endcase
+        if (counter < 32) begin
+            case (current_mul_opcode)
+                MUL, MULHU: begin
+                    if (multiplier_reg[0] == 1'b1) begin
+                        product_reg <= product_reg + ({32'b0, multiplicand_reg} << counter);
+                    end
                 end
-                multiplier_reg <= multiplier_reg >> 1;
-                counter <= counter + 1'b1;
-                result_multiply <= 32'b0;
-            end else begin
+                MULH: begin
+                    signed_product_reg <= multiplicand_signed * multiplier_signed;
+                end
+
+                MULHSU: begin
+                    if (multiplier_unsigned[counter] == 1'b1) begin
+                        signed_product_reg <= signed_product_reg + ($signed({{32{multiplicand_signed[31]}}, multiplicand_signed[31:0]}) << counter);
+                    end
+                end
+            endcase
+
+            multiplier_reg <= multiplier_reg >> 1;
+            counter <= counter + 1'b1;
+        end
+            else begin
                 processing <= 1'b0;
                 done <= 1'b1;
                 mul_use <= 1'b0;
@@ -86,9 +102,12 @@ always_ff @(posedge clk or posedge rst) begin
                     MUL: begin
                         result_multiply <= product_reg[31:0];
                     end
-                    MULH, MULHSU: begin
+                    MULH: begin
                         result_multiply <= signed_product_reg[63:32];
                     end
+                     MULHSU:begin
+                        result_multiply <= signed_product_reg[63:32];
+                     end
                     MULHU: begin
                         result_multiply <= product_reg[63:32];
                     end
@@ -101,7 +120,6 @@ always_ff @(posedge clk or posedge rst) begin
     end
 end
 endmodule
-
 
 
 
