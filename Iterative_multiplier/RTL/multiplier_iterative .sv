@@ -38,7 +38,7 @@ always_ff @(posedge clk or posedge rst) begin
         result_multiply <= 32'b0;
     end 
     else begin
-        if (startM) begin
+        if (startM && !processing) begin
             mul_use <= 1'b1;
             current_mul_opcode <= mul_opcode;
             case (mul_opcode)
