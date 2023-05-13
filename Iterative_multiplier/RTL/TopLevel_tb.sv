@@ -23,27 +23,27 @@ begin
         end
 end
 
-// always_ff @(posedge clk)
-// begin
-    
-// if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultM == 32'h00000f00))
-// begin
-//     $fwrite(f,"%h\n", TOPLevel.data_wr);
-// end
-
-// if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultM == 32'hcafebeef))
-// begin
-//     $finish;
-// end
-// end
-
 always_ff @(posedge clk)
 begin
-    // if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultM == 32'h00000f00))
-        // if((TOPLevel.ALUResultM == 32'h00000f00))
-    $fwrite(f,"InsrtE=%h, startD=%b, doneD=%b, div_opcode=%b, result_divide=%h, operand1=%h, operand2=%h, flagD=%b,result_m=%h\n",TOPLevel.InstE,TOPLevel.startD,TOPLevel.doneD,TOPLevel.div_opcode,TOPLevel.result_divide,TOPLevel.operand1,TOPLevel.operand2,TOPLevel.flagD,TOPLevel.result_m);
-
+    
+if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultM == 32'h00000f00))
+begin
+    $fwrite(f,"%h\n", TOPLevel.data_wr);
 end
+
+if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultM == 32'hcafebeef))
+begin
+    $finish;
+end
+end
+
+// always_ff @(posedge clk)
+// begin
+//     // if((~TOPLevel.Dmem.wr) & (TOPLevel.ALUResultM == 32'h00000f00))
+//         // if((TOPLevel.ALUResultM == 32'h00000f00))
+//     $fwrite(f,"InsrtE=%h, startD=%b, doneD=%b, div_opcode=%b, result_divide=%h, operand1=%h, operand2=%h, flagD=%b,result_m=%h\n",TOPLevel.InstE,TOPLevel.startD,TOPLevel.doneD,TOPLevel.div_opcode,TOPLevel.result_divide,TOPLevel.operand1,TOPLevel.operand2,TOPLevel.flagD,TOPLevel.result_m);
+
+// end
 
 
 
