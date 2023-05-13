@@ -19,14 +19,10 @@ module multiplier_iterative (
     logic [31:0] multiplier_reg;
     logic signed [63:0] signed_product_reg;
     logic [63:0] product_reg;
-    logic [63:0] temp_result;
     logic [5:0] counter;
     logic processing;
     logic [1:0] current_mul_opcode;
 
-    logic signed [63:0] multiplicand_signed_64;
-    logic signed [63:0] multiplier_signed_64;
-    logic signed [63:0] shifted_multiplicand;
 always_ff @(posedge clk or posedge rst) begin
     if (rst) begin
         multiplicand_reg <= 32'b0;
@@ -49,11 +45,6 @@ always_ff @(posedge clk or posedge rst) begin
                     multiplicand_reg <= operand1;
                     multiplier_reg   <= operand2;
                 end
-                // MULH: begin
-                //     multiplicand_signed <= $signed({1'b0, operand1[31:0]});
-                //     multiplier_signed   <= $signed({1'b0, operand2[31:0]});
-                //     signed_product_reg  <= multiplicand_signed * multiplier_signed;
-                // end
                 MULH: begin
                     multiplicand_signed <= $signed({1'b0, operand1[31:0]});
                     multiplier_signed   <= $signed({1'b0, operand2[31:0]});
