@@ -44,19 +44,19 @@ always_ff @(posedge clk or posedge rst) begin
             case (mul_opcode)
                 MUL, MULHU: begin
                     multiplicand_reg <= operand1;
-                    multiplier_reg <= operand2;
+                    multiplier_reg   <= operand2;
                 end
                 MULH: begin
-                    multiplicand_signed = $signed({1'b0, operand1[31:0]});
-                    multiplier_signed = $signed({1'b0, operand2[31:0]});
-                    signed_product_reg <= multiplicand_signed * multiplier_signed;
+                    multiplicand_signed <= $signed({1'b0, operand1[31:0]});
+                    multiplier_signed   <= $signed({1'b0, operand2[31:0]});
+                    signed_product_reg  <= multiplicand_signed * multiplier_signed;
                 end
-                MULHSU: begin
-                    multiplicand_signed <= $signed({operand1[31], operand1[31:0]});
-                    multiplier_unsigned <= operand2;
-                    signed_product_reg <= multiplicand_signed * $signed({32'b0, multiplier_unsigned});
+                // MULHSU: begin
+                //     multiplicand_signed <= $signed({1'b0, operand1[31:0]});
+                //     multiplier_unsigned <= $unsigned(operand2);
+                //     signed_product_reg  <= multiplicand_signed * $signed({1'b0, multiplier_unsigned});
 
-                end
+                // end
             endcase
             product_reg <= 64'b0;
             counter <= 6'b0;
@@ -66,30 +66,26 @@ always_ff @(posedge clk or posedge rst) begin
         end
         if (processing) begin
             mul_use <= 1'b1;
-            if (counter < 32) begin
-                if (multiplier_reg[0] == 1'b1) begin
-                    case (current_mul_opcode)
-                        MUL,MULHU: begin
-                            product_reg <= product_reg + ({32'b0, multiplicand_reg} << counter);
-                        end
-                        // MULH, MULHSU: 
-                        //      signed_product_reg <= signed_product_reg >> 1;
-
-                        MULHSU,MULH: begin
-                                if (multiplier_reg[0] == 1'b1) begin
-                                    signed_product_reg <= signed_product_reg + ({32'b0, multiplicand_signed} << counter);
-                                end
-                                else begin
-                                    signed_product_reg <= signed_product_reg >> 1;
-                                end
-                                end
-
-                    endcase
+        if (counter < 32) begin
+            case (current_mul_opcode)
+                MUL,MULHU: begin
+                    if (multiplier_reg[0] == 1'b1) begin
+                        product_reg <= product_reg + ({32'b0, multiplicand_reg} << counter);
+                    end
                 end
-                multiplier_reg <= multiplier_reg >> 1;
-                counter <= counter + 1'b1;
-                result_multiply <= 32'b0;
-            end else begin
+                MULHSU: begin
+                    multiplicand_signed <= $signed({1'b0, operand1[31:0]});
+                    multiplier_unsigned <= operand2;
+                    if (multiplier_unsigned[counter] == 1'b1) begin
+                        signed_product_reg <= signed_product_reg + $signed({{32{multiplicand_signed[31]}}, multiplicand_signed[31:0]} << counter);
+                    end
+                end
+
+            endcase
+            multiplier_reg <= multiplier_reg >> 1;
+            counter <= counter + 1'b1;
+        end
+            else begin
                 processing <= 1'b0;
                 done <= 1'b1;
                 mul_use <= 1'b0;
