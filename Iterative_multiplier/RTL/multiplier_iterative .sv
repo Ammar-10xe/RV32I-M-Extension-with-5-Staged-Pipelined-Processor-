@@ -24,6 +24,9 @@ module multiplier_iterative (
     logic processing;
     logic [1:0] current_mul_opcode;
 
+    logic signed [63:0] multiplicand_signed_64;
+    logic signed [63:0] multiplier_signed_64;
+    logic signed [63:0] shifted_multiplicand;
 always_ff @(posedge clk or posedge rst) begin
     if (rst) begin
         multiplicand_reg <= 32'b0;
@@ -46,17 +49,16 @@ always_ff @(posedge clk or posedge rst) begin
                     multiplicand_reg <= operand1;
                     multiplier_reg   <= operand2;
                 end
+                // MULH: begin
+                //     multiplicand_signed <= $signed({1'b0, operand1[31:0]});
+                //     multiplier_signed   <= $signed({1'b0, operand2[31:0]});
+                //     signed_product_reg  <= multiplicand_signed * multiplier_signed;
+                // end
                 MULH: begin
                     multiplicand_signed <= $signed({1'b0, operand1[31:0]});
                     multiplier_signed   <= $signed({1'b0, operand2[31:0]});
-                    signed_product_reg  <= multiplicand_signed * multiplier_signed;
+                    signed_product_reg  <= 64'b0;
                 end
-                // MULHSU: begin
-                //     multiplicand_signed <= $signed({1'b0, operand1[31:0]});
-                //     multiplier_unsigned <= $unsigned(operand2);
-                //     signed_product_reg  <= multiplicand_signed * $signed({1'b0, multiplier_unsigned});
-
-                // end
                 MULHSU: begin
                     multiplicand_signed <= $signed({1'b0, operand1[31:0]});
                     multiplier_unsigned <= operand2;
@@ -78,6 +80,16 @@ always_ff @(posedge clk or posedge rst) begin
                         product_reg <= product_reg + ({32'b0, multiplicand_reg} << counter);
                     end
                 end
+                MULH: begin
+                    multiplicand_signed_64 = $signed({{32{multiplicand_signed[31]}}, multiplicand_signed});
+                    multiplier_signed_64 = $signed({{32{multiplier_signed[31]}}, multiplier_signed});
+                      shifted_multiplicand = multiplicand_signed << counter; 
+                    if (multiplier_signed[counter] == 1'b1) begin
+                      
+                        signed_product_reg <= signed_product_reg + shifted_multiplicand;
+                    end
+                end
+
                 MULHSU: begin
                     if (multiplier_unsigned[counter] == 1'b1) begin
                         signed_product_reg <= signed_product_reg + ($signed({{32{multiplicand_signed[31]}}, multiplicand_signed[31:0]}) << counter);
@@ -100,7 +112,7 @@ always_ff @(posedge clk or posedge rst) begin
                         result_multiply <= signed_product_reg[63:32];
                     end
                      MULHSU:begin
-                        result_multiply <= $unsigned(signed_product_reg[63:32]);
+                        result_multiply <= signed_product_reg[63:32];
                      end
                     MULHU: begin
                         result_multiply <= product_reg[63:32];
