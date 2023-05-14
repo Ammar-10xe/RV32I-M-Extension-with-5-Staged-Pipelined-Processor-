@@ -1,168 +1,219 @@
-# RV32I-M-Extension-with-5-Staged-Pipelined-Processor-
-This repo contains the M Extension of the RV32I 5 stage pipelined Processor 
-
-# **DataPath followed**
-
- ![image](https://user-images.githubusercontent.com/104595329/235644200-67e40eca-e6f1-48f5-b0ee-ef27077dd0df.png)
+#  	**RV32I M-Extension with *5-Staged Pipelined   Processor**
 
 
-### **Testing and Simulation:**
-In Order to test the correct working of M extension I have added some test case which will check all the 8 different Instructions of M extension  that are
+This repository contains the implementation of a *RISC-V 32I* processor with the addition of the *M-extension*. This extension adds hardware integer multiplication and division instructions to the base integer instruction set. This document aims to provide a comprehensive understanding of this extension and its relevance to the RISC-V 32I architecture.
 
-- MUL (Multiply): Computes the product of two 32-bit signed integers.
-- MULH (Multiply High): Computes the upper 32 bits of the 64-bit signed product of two 32-bit signed integers.
-- MULHSU (Multiply High Signed/Unsigned): Computes the upper 32 bits of the 64-bit signed product of a 32-bit signed integer and a 32-bit unsigned integer.
-- MULHU (Multiply High Unsigned): Computes the upper 32 bits of the 64-bit unsigned product of two 32-bit unsigned integers.
-- DIV (Divide): Divides two 32-bit signed integers and returns the quotient.
-- DIVU (Divide Unsigned): Divides two 32-bit unsigned integers and returns the quotient.
-- REM (Remainder): Divides two 32-bit signed integers and returns the remainder.
-- REMU (Remainder Unsigned): Divides two 32-bit unsigned integers and returns the remainder.
+### RISC-V M-Extension
 
-The test case written is as follows:
-```
+The RISC-V M-extension, also known as the *Integer Multiplication and Division* extension, is a standard extension to the base RISC-V instruction set architecture. This extension provides instructions that perform integer multiplication and division operations. The M-extension is particularly beneficial for applications that perform a lot of mathematical computations, as it greatly reduces the number of instructions required to perform these operations, leading to significant performance improvements.
 
-# Load two unsigned 32-bit integers into registers x1 and x2
-li x1, 100
-li x2, 200
+The addition of the M-extension to the base RISC-V 32I instruction set enhances the computational capabilities of the processor, making it well-suited for a wide range of applications, from high-performance computing to embedded systems.
 
-# Multiply the two integers and store the result in a 64-bit register x3
-mul x3, x1, x2
+In our implementation, we've included the following instructions from the M-Extension:
 
-# Load two signed 32-bit integers into registers x4 and x5
-li x4, -50
-li x5, 20
+-   **Multiplication Instructions**: MUL, MULH, MULHSU, MULHU
+-   **Division Instructions**: DIV, DIVU, REM, REMU
 
-# Multiply the two integers and store the high 32 bits of the result in a register x6
-mulh x6, x4, x5
-
-# Load two signed 32-bit integers into registers x7 and x8
-li x7, -100
-li x8, 25
-
-# Divide the first integer by the second integer and store the quotient in a register x9
-div x9, x7, x8
-
-# Load two unsigned 32-bit integers into registers x10 and x11
-li x10, 500
-li x11, 37
-
-# Divide the first integer by the second integer and store the remainder in a register x12
-remu x12, x10, x11
-
-# Load two unsigned 32-bit integers into registers x13 and x14
-li x13, 1000
-li x14, 50
-
-# Divide the first integer by the second integer and store the quotient in a register x15
-divu x15, x13, x14
-
-# Load two signed 32-bit integers into registers x16 and x17
-li x16, -200
-li x17, 40
-
-# Multiply the two integers and store the low 32 bits of the result in a register x18
-mul x18, x16, x17
-
-# Load two signed 32-bit integers into registers x19 and x20
-li x19, -300
-li x20, 60
-
-# Multiply the two integers and store the unsigned high 32 bits of the result in a register x21
-mulhu x21, x19, x20
-
-# Load two unsigned 32-bit integers into registers x22 and x23
-li x22, 400
-li x23, 80
-
-# Multiply the two integers and store the unsigned low 32 bits of the result in a register x24
-mul x24, x22, x23
-```
-
-After running the above code the contents of the register should be 
-
-```
-00000000 00000000 00000000 00000000 00000000 00000000 00000000 00007d00 00000050 00000190 0000003b 0000003c fffffed4 ffffe0c0 00000028
-ffffff38 00000014 00000032 000003e8 00000013 00000025 000001f4 fffffffc 00000019 ffffff9c ffffffff 00000014 ffffffce 00004e20 000000c8
-00000064 00000000
-```
-
-After running the above code on MODELSIM we can verify the contents of the register are same as shown:
-
- ![image](https://user-images.githubusercontent.com/104595329/235796124-542aba51-6dad-4729-b975-0e605564a68e.png)
-
-You can verify the contents by copying the code code and running it on the the https://venus.kvakil.me/
-
-## Factorial Code Testing:
-
-The code of factorial was used to test this since the code is calculating the factorial of 5! the output of 120 should be stored before returning back from this function in register a0(x10) 
+These instructions allow for signed and unsigned multiplication and division, and also multiplication that produces the upper half of the product. This makes the processor more flexible and capable of handling more complex mathematical operations efficiently.
 
 
-## **Factorial Code**
+### How to Use this Repository
 
-```
-factorial:
+This repository is your one-stop destination for all resources required to understand, build, and test our RISC-V 32I processor with the M-extension.
 
-    # Save registers
-    addi sp, sp, -8
-    sw ra, 4(sp)
-    sw s0, 0(sp)
+To utilize this repository, follow the steps listed below:
 
-    # Initialize variables
-    addi s0, x0, 1 # s0 = 1 (accumulator)
-    addi t0, x0, 1 # t0 = 1 (loop counter)
-    li a0, 5       # Load argument n into a0
+1.  Clone this repository onto your local machine.
+2.  Navigate to the directory named as `RV32IM/RTL`.
+3.  Compile the source code using your preferred RISC-V compiler. If you are using ModelSim, you can use `vlog *.sv` to compile the source code. To run it, use `vsim -c -do "run -all" TopLevel_tb +sig=result.txt +mem_init=dut.hex`.
 
-    # Loop
-    factorial_loop:
-        beq t0, a0, factorial_end # If t0 == n, exit loop
-        addi t0, t0, 1           # Increment loop counter
-        mul s0, s0, t0           # Multiply accumulator by loop counter
-        j factorial_loop
+    -   `TopLevel_tb`: This is the name of the top-level module of the testbench.
+    -   `+sig=result.txt +mem_init=demo.hex`: These are simulation arguments. 
+    
+----------
 
-    # End of function
-    factorial_end:
-        
-        #move the result to a0
-        mv a0, s0 
+For more detailed information, refer to the individual files in this repository. If you have any questions or encounter any issues, please feel free to open an issue on GitHub.
 
-        # Restore registers
-        lw ra, 4(sp)
-        lw s0, 0(sp)
-        addi sp, sp, 8
-        
-        # Return result
-        jr ra
+Your contributions to this project are most welcome. If you wish to contribute, please fork this repository and submit a pull request
 
-```
-The following code is using the mul instruction which is not an Interger type instruction and it will be supported by M extension
+## Framework for Testing
 
-The hex generated for this code is 
+RISCOF framework is used which is a python based framework that enables testing of a RISC-V target (hard or soft implementations) against a standard RISC-V golden reference model using a suite of RISC-V architectural assembly tests.For more information please visit [RISCOF](https://riscof.readthedocs.io/en/latest/intro.html) 
+> In our case, we have compared our designed RTL  with golden reference model named sail
 
-```
-ff810113
-00112223
-00812023
-00100413
-00100293
-00500513
-00a28863
-00128293
-02540433
-ff5ff06f
-00040513
-00412083
-00012403
-00810113
-00008067
-```
-## Output Result and Waveform
-The output obtained after running the factorial function  is 
+## Compliance Testing
 
+Compliance testing is **to check whether the processor under development meets the open RISC-V standards or not**. There are some tests available online that tries to cover the corner cases of all the instructions type listed above. These tests are contributed by open source community and are updated from time to time. In order to call your design to be fully complianced with RISC-V International Standards, one should pass all these tests successfully. These tests are available online by the name riscv-non-isa arch test.
 
- ![image](https://user-images.githubusercontent.com/104595329/235783797-2a17f9f7-e17a-4ecc-bdce-cc7275f3ff23.png)
+We have also  included a suite of tests designed to verify the correct operation of the M-extension instructions. These tests can be executed using the provided test scripts. To do so, navigate to the compliance testing folder and execute the following command:
+
+    riscof -v debug run --config=config.ini --suite=./riscv-arch-test/riscv-test-suite/rv32i_m/I --env=./riscv-arch-test/riscv-test-suite/env
+
+> **Note:** You would have adjust the path accordingly in the .confi.ini file. 
+
+For more details about the Compliance Testing   please refer to the Quickstart section
+
+## Result
+
+Using RISCOF framework generates a report that shows how many tests are passed and how many failed. You can find the report in riscof_work/report.html. As the report is in HTML language so you need to render it for better view if you want to see the result or you can click the [View Rendered HTML](http://htmlpreview.github.io/?https://github.com/Ammarkhan561/RV32I-M-Extension-with-5-Staged-Pipelined-Processor-/blob/master/Compliance_Testing_RV32IM/riscof_work/report.html) to see the rendered report.
  
- The output waveform showing the result stored in a0
- 
- ![image](https://user-images.githubusercontent.com/104595329/235786860-62545096-cd48-4e5e-a742-5d60659682b5.png)
+#  Quickstart RISCOF
+
+## RISCV-GNU Toolchain
+
+Though, we can [build](https://github.com/riscv-collab/riscv-gnu-toolchain) the toolchain from source or use the [pre-build](https://github.com/riscv-collab/riscv-gnu-toolchain/releases/tag/2022.10.11) toolchain. But don't require customize fancy features of the toolchain for application. The following command suffice. Run it to install the toolchain.
+
+    sudo apt-get install gcc-riscv64-unknown-elf
+If this did not work you can download any latest version of pre-compiled toolchain from  [RISCV-GNU Toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain/releases/tag/2022.10.11) and make sure to add the path `/path/to/install` to your  $PATH in the .bashrc/zshrc with this you should now have all the following available as command line arguments:
+
+    riscv32-unknown-elf-addr2line      riscv32-unknown-elf-elfedit
+    riscv32-unknown-elf-ar             riscv32-unknown-elf-g++
+    riscv32-unknown-elf-as             riscv32-unknown-elf-gcc
+    riscv32-unknown-elf-c++            riscv32-unknown-elf-gcc-8.3.0
+    riscv32-unknown-elf-c++filt        riscv32-unknown-elf-gcc-ar
+    riscv32-unknown-elf-cpp            riscv32-unknown-elf-gcc-nm
+    riscv32-unknown-elf-gcc-ranlib     riscv32-unknown-elf-gprof
+    riscv32-unknown-elf-gcov           riscv32-unknown-elf-ld
+    riscv32-unknown-elf-gcov-dump      riscv32-unknown-elf-ld.bfd
+    riscv32-unknown-elf-gcov-tool      riscv32-unknown-elf-nm
+    riscv32-unknown-elf-gdb            riscv32-unknown-elf-objcopy
+    riscv32-unknown-elf-gdb-add-index  riscv32-unknown-elf-objdump
+    riscv32-unknown-elf-ranlib         riscv32-unknown-elf-readelf
+    riscv32-unknown-elf-run            riscv32-unknown-elf-size
+    riscv32-unknown-elf-strings        riscv32-unknown-elf-strip
+
+
+## Verilog Simulator
+
+An HDL Simulator is required that can simulate Verilog (or System Verilog designs). We have the following options.
+
+### Icarus
+
+:warning: It only works for Verilog designs and may not for System.
+
+Run the following commands to install Icarus Verilog and GTK wave to view the waveform.
+
+    sudo apt­get install iverilog
+    sudo apt­get install gtkwave
+
+### Verilator
+
+Run the following command to install [Verilator](https://verilator.org/guide/latest/).
+
+    sudo apt-get install verilator
+
+### Modelsim
+
+Modelsim Setup Lite Edition will be provided on the spot. Refer the [guide](https://profile.iiita.ac.in/bibhas.ghoshal/COA_2020/Lab/ModelSim%20Linux%20installation.html) to install the Modelsim on Linux. 
+
+:warning: Remember that we need to have the ability to complile and simulate the design using command line interface (CLI). [User manual](https://www.microsemi.com/document-portal/doc_view/131619-modelsim-user) contains the instructions for that.
+
+## RISCOF and Python
+
+[RISCOF](https://riscof.readthedocs.io/en/stable/) is the standard RISC-V Compliance testing framework. Run the following commands to install RISCOF.
+
+    sudo apt-get -y install python3-pip
+    sudo apt-get install -y python3-setuptools
+    pip3 install git+https://github.com/riscv/riscof.git
+
+## Install Plugin Models
+
+  [SAIL-riscv](https://github.com/riscv/sail-riscv) is the Golden reference model for RISC-V architecture.Run the following commands to setup the model.
+
+    $ sudo apt-get install opam  build-essential libgmp-dev z3 pkg-config zlib1g-dev
+    $ opam init -y --disable-sandboxing
+    $ opam switch create ocaml-base-compiler.4.06.1
+    $ opam install sail -y
+    $ eval $(opam config env)
+    $ git clone https://github.com/riscv/sail-riscv.git
+    $ cd sail-riscv
+    $ make
+    $ ARCH=RV32 make
+    $ ARCH=RV64 make
+    $ ln -s sail-riscv/c_emulator/riscv_sim_RV64 /usr/bin/riscv_sim_RV64
+    $ ln -s sail-riscv/c_emulator/riscv_sim_RV32 /usr/bin/riscv_sim_RV32
+    
+Please give the complete PATH to create a symbolic link for example in my case it was `sudo ln -s /home/xe-lpt-71/sail-riscv/c_emulator/sail-riscv/c_emulator/riscv_sim_RV32 /usr/bin/riscv_sim_RV32\n` After adding the symbolic link verify it using `riscv_sim_RV32`or `riscv_sim_RV64` the output of this should be
+
+    No elf file provided.
+    Usage: riscv_sim_RV32 [options] <elf_file>
+    	 -d	 --enable-dirty-update
+    	 -m	 --enable-misaligned
+    	 -P	 --enable-pmp
+    	 -N	 --enable-next
+    	 -z	 --ram-size
+    	 -C	 --disable-compressed
+    	 -I	 --disable-writable-misa
+    	 -F	 --disable-fdext
+    	 -i	 --mtval-has-illegal-inst-bits
+    	 -b	 --device-tree-blob
+    	 -t	 --terminal-log
+    	 -p	 --show-times
+    	 -a	 --report-arch
+    	 -T	 --test-signature
+    	 -g	 --signature-granularity
+    	 -h	 --help
+    	 -v	 --trace
+    	 -V	 --no-trace
+    	 -l	 --inst-limit
+    	 -x	 --enable-zfinx
+
+Remember, creating a **symbolic link** in a directory in your PATH will allow you to run a program/command located in another directory as if it were in your PATH. It won't add the entire directory to your PATH. If you want to add an entire directory to your PATH, you need to modify your shell's configuration file (like `~/.bashrc` or `~/.bash_profile` for the bash shell, `~/.zshrc` for zsh shell).
+
+
+## Command Line Interface 
+
+I have used the ModelSim's command line interface for compiling and simulating SystemVerilog (`.sv`) files.
+
+1.  `vlog *.sv`: The `vlog` command is used for compiling Verilog/SystemVerilog files. The `*.sv` argument tells it to compile all `.sv` files in the current directory.
+    
+2.  `vsim -c -do "run -all" TopLevel_tb +sig=result.txt +mem_init=dut.hex`: The `vsim` command is used to simulate compiled Verilog/SystemVerilog designs.
+    
+    -   `-c`: This option tells ModelSim to run in command line mode (without GUI).
+    -   `-do "run -all"`: This option tells ModelSim to execute the command `run -all` immediately after loading the design. The `run -all` command starts the simulation and runs it until there are no more events to process.
+    -   `TopLevel_tb`: This is the name of the top-level module of the testbench.
+    -   `+sig=result.txt +mem_init=demo.hex`: These are simulation arguments. 
+   3. `$value$plusargs` is a system function in Verilog and SystemVerilog that is used to read command-line arguments passed to the simulator. This function is often used to set configuration or control values at simulation runtime. It allows you to change certain variables without having to recompile your simulat 
+
+It is always good habit to read the documentation. So make sure to check the usage of these commands.  
+   [vsim](http://www.pldworld.com/_hdl/2/_ref/se_html/manual_html/c_vcmds191.html) ,  [vlog](http://www.pldworld.com/_hdl/2/_ref/se_html/manual_html/c_vcmds188.html)  and  [value$plusargs](https://www.chipverify.com/systemverilog/systemverilog-command-line-input)
+
+
+## RISCV ARCH Tests
+
+The RISC-V architecture tests are open-source and can be found on the [RISC-V Architectural Tests GitHub repository](https://github.com/riscv/riscv-arch-test). Clone the riscv arch tests using 
+
+    git clone https://github.com/riscv-non-isa/riscv-arch-test.git
+
+The RISC-V architecture tests are a suite of tests designed to ensure that a RISC-V CPU implementation conforms to the official RISC-V specification. These tests are important for guaranteeing the correct behavior of RISC-V implementations, and they cover a range of functionality, from basic instruction behavior to more complex features such as interrupts and exceptions. The tests are divided into different categories:
+
+-   **RV32I**: Base Integer Instruction Set (32-bit)
+-   **RV64I**: Base Integer Instruction Set (64-bit)
+-   **RV32M**: Standard Extension for Integer Multiplication and Division (32-bit)
+-   **RV64M**: Standard Extension for Integer Multiplication and Division (64-bit)
+-   **RV32F**: Standard Extension for Single-Precision Floating-Point (32-bit)
+-   **RV64F**: Standard Extension for Single-Precision Floating-Point (64-bit)
+-   **RV32D**: Standard Extension for Double-Precision Floating-Point (32-bit)
+-   **RV64D**: Standard Extension for Double-Precision Floating-Point (64-bit)
+-   And many others
+
+To use these tests, we would clone the repository in the working directory  to generate and run the tests against our RISC-V Core.
+
+##  Running RISCOF
+
+You can use the following RISCOF (RISC-V Instruction Set Compliance Framework) coomands to run compliance tests on a RISC-V Core
+
+    riscof setup --dutname=RV32I 
+
+This command sets up RISCOF for testing a device-under-test (DUT) named "RV32I". The DUT is the RISC-V implementation that you're testing.
+
+    riscof run --config=config.ini --suite=/home/xe-lpt-71/Documents/5stageCompliance/riscv-arch-test/riscv-test-suite/rv32i_m/I/src --env=/home/xe-lpt-71/Documents/5stageCompliance/riscv-arch-test/riscv-test-suite/env --no-ref-run
+
+
+This command runs RISCOF tests. The `--config` option specifies the configuration file, the `--suite` option specifies the path to the test suite you want to run, and the `--env` option specifies the test environment. The `–no-ref-run` option tells RISCOF not to run the tests against the reference model
+
+    riscof -v debug run --config=config.ini --suite=./riscv-arch-test/riscv-test-suite/rv32i_m/I --env=./riscv-arch-test/riscv-test-suite/env
+
+This command is similar to the previous one, but it includes the `-v debug` option, which sets the verbosity level to "debug". This means that RISCOF will provide more detailed output about what it's doing, which can be useful for debugging issues.
 
 
