@@ -1,5 +1,6 @@
-#  	**RV32I M-Extension with *5-Staged Pipelined   Processor**
+#  	*RV32I M-Extension with *5-Staged Pipelined   Processor**
 
+Welcome to this repository, where we have extended our previously implemented RISC-V 32I processor with the addition of the M-extension. Before delving into the details of the M-extension, it is worth noting that the base of this project is a [5-stage RISC-V 32I pipeline processor](https://github.com/Ammarkhan561/RISCV32I-5-Stage-Pipelined-Processor-Compliance-Verification.git), which we have built and tested for compliance in a separate repository. The RISC-V 32I processor provides a solid foundation, upon which we have built and expanded with the integration of the M-extension.
 
 This repository contains the implementation of a *RISC-V 32I* processor with the addition of the *M-extension*. This extension adds hardware integer multiplication and division instructions to the base integer instruction set. This document aims to provide a comprehensive understanding of this extension and its relevance to the RISC-V 32I architecture.
 
