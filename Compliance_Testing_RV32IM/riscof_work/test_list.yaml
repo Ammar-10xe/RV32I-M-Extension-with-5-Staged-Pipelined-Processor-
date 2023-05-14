@@ -1,0 +1,85 @@
+# testlist generated on 2023-05-14 00:09 GMT
+/home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/div-01.S:
+  commit_id: '-'
+  work_dir: /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/div-01.S
+  macros:
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32IM
+  coverage_labels:
+  - div
+  test_path: /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/div-01.S
+/home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/divu-01.S:
+  commit_id: '-'
+  work_dir: /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/divu-01.S
+  macros:
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32IM
+  coverage_labels:
+  - divu
+  test_path: /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/divu-01.S
+/home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mul-01.S:
+  commit_id: '-'
+  work_dir: /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/mul-01.S
+  macros:
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32IM
+  coverage_labels:
+  - mul
+  - mul
+  test_path: /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mul-01.S
+/home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulh-01.S:
+  commit_id: '-'
+  work_dir: /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/mulh-01.S
+  macros:
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32IM
+  coverage_labels:
+  - mulh
+  - mulh
+  test_path: /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulh-01.S
+/home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulhsu-01.S:
+  commit_id: '-'
+  work_dir: /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/mulhsu-01.S
+  macros:
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32IM
+  coverage_labels:
+  - mulhsu
+  - mulhsu
+  test_path: /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulhsu-01.S
+/home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulhu-01.S:
+  commit_id: '-'
+  work_dir: /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/mulhu-01.S
+  macros:
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32IM
+  coverage_labels:
+  - mulhu
+  - mulhu
+  test_path: /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulhu-01.S
+/home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/rem-01.S:
+  commit_id: '-'
+  work_dir: /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/rem-01.S
+  macros:
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32IM
+  coverage_labels:
+  - rem
+  test_path: /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/rem-01.S
+/home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/remu-01.S:
+  commit_id: '-'
+  work_dir: /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/remu-01.S
+  macros:
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32IM
+  coverage_labels:
+  - remu
+  test_path: /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/remu-01.S

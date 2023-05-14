@@ -1,0 +1,33 @@
+
+
+.PHONY : TARGET0
+TARGET0 :
+	@cd /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/div-01.S/ref;riscv64-unknown-elf-gcc -march=rv32im          -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles         -T /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/link.ld         -I /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/         -I /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/env -mabi=ilp32  /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/div-01.S -o sail-div-01.elf -DTEST_CASE_1=True -DXLEN=32;riscv64-unknown-elf-objdump -D sail-div-01.elf > sail-div-01.disass;riscv_sim_RV32 --test-signature=/home/xe-lpt-71/Documents/5stageCompliance/riscof_work/div-01.S/ref/Reference-sail_c_simulator.signature sail-div-01.elf > sail-div-01.log 2>&1;
+
+.PHONY : TARGET1
+TARGET1 :
+	@cd /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/divu-01.S/ref;riscv64-unknown-elf-gcc -march=rv32im          -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles         -T /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/link.ld         -I /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/         -I /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/env -mabi=ilp32  /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/divu-01.S -o sail-divu-01.elf -DTEST_CASE_1=True -DXLEN=32;riscv64-unknown-elf-objdump -D sail-divu-01.elf > sail-divu-01.disass;riscv_sim_RV32 --test-signature=/home/xe-lpt-71/Documents/5stageCompliance/riscof_work/divu-01.S/ref/Reference-sail_c_simulator.signature sail-divu-01.elf > sail-divu-01.log 2>&1;
+
+.PHONY : TARGET2
+TARGET2 :
+	@cd /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/mul-01.S/ref;riscv64-unknown-elf-gcc -march=rv32im          -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles         -T /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/link.ld         -I /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/         -I /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/env -mabi=ilp32  /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mul-01.S -o sail-mul-01.elf -DTEST_CASE_1=True -DXLEN=32;riscv64-unknown-elf-objdump -D sail-mul-01.elf > sail-mul-01.disass;riscv_sim_RV32 --test-signature=/home/xe-lpt-71/Documents/5stageCompliance/riscof_work/mul-01.S/ref/Reference-sail_c_simulator.signature sail-mul-01.elf > sail-mul-01.log 2>&1;
+
+.PHONY : TARGET3
+TARGET3 :
+	@cd /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/mulh-01.S/ref;riscv64-unknown-elf-gcc -march=rv32im          -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles         -T /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/link.ld         -I /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/         -I /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/env -mabi=ilp32  /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulh-01.S -o sail-mulh-01.elf -DTEST_CASE_1=True -DXLEN=32;riscv64-unknown-elf-objdump -D sail-mulh-01.elf > sail-mulh-01.disass;riscv_sim_RV32 --test-signature=/home/xe-lpt-71/Documents/5stageCompliance/riscof_work/mulh-01.S/ref/Reference-sail_c_simulator.signature sail-mulh-01.elf > sail-mulh-01.log 2>&1;
+
+.PHONY : TARGET4
+TARGET4 :
+	@cd /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/mulhsu-01.S/ref;riscv64-unknown-elf-gcc -march=rv32im          -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles         -T /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/link.ld         -I /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/         -I /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/env -mabi=ilp32  /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulhsu-01.S -o sail-mulhsu-01.elf -DTEST_CASE_1=True -DXLEN=32;riscv64-unknown-elf-objdump -D sail-mulhsu-01.elf > sail-mulhsu-01.disass;riscv_sim_RV32 --test-signature=/home/xe-lpt-71/Documents/5stageCompliance/riscof_work/mulhsu-01.S/ref/Reference-sail_c_simulator.signature sail-mulhsu-01.elf > sail-mulhsu-01.log 2>&1;
+
+.PHONY : TARGET5
+TARGET5 :
+	@cd /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/mulhu-01.S/ref;riscv64-unknown-elf-gcc -march=rv32im          -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles         -T /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/link.ld         -I /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/         -I /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/env -mabi=ilp32  /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulhu-01.S -o sail-mulhu-01.elf -DTEST_CASE_1=True -DXLEN=32;riscv64-unknown-elf-objdump -D sail-mulhu-01.elf > sail-mulhu-01.disass;riscv_sim_RV32 --test-signature=/home/xe-lpt-71/Documents/5stageCompliance/riscof_work/mulhu-01.S/ref/Reference-sail_c_simulator.signature sail-mulhu-01.elf > sail-mulhu-01.log 2>&1;
+
+.PHONY : TARGET6
+TARGET6 :
+	@cd /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/rem-01.S/ref;riscv64-unknown-elf-gcc -march=rv32im          -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles         -T /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/link.ld         -I /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/         -I /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/env -mabi=ilp32  /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/rem-01.S -o sail-rem-01.elf -DTEST_CASE_1=True -DXLEN=32;riscv64-unknown-elf-objdump -D sail-rem-01.elf > sail-rem-01.disass;riscv_sim_RV32 --test-signature=/home/xe-lpt-71/Documents/5stageCompliance/riscof_work/rem-01.S/ref/Reference-sail_c_simulator.signature sail-rem-01.elf > sail-rem-01.log 2>&1;
+
+.PHONY : TARGET7
+TARGET7 :
+	@cd /home/xe-lpt-71/Documents/5stageCompliance/riscof_work/remu-01.S/ref;riscv64-unknown-elf-gcc -march=rv32im          -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles         -T /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/link.ld         -I /home/xe-lpt-71/Documents/5stageCompliance/sail_cSim/env/         -I /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/env -mabi=ilp32  /home/xe-lpt-71/Documents/Test/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/remu-01.S -o sail-remu-01.elf -DTEST_CASE_1=True -DXLEN=32;riscv64-unknown-elf-objdump -D sail-remu-01.elf > sail-remu-01.disass;riscv_sim_RV32 --test-signature=/home/xe-lpt-71/Documents/5stageCompliance/riscof_work/remu-01.S/ref/Reference-sail_c_simulator.signature sail-remu-01.elf > sail-remu-01.log 2>&1;
